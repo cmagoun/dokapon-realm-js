@@ -1,7 +1,8 @@
 import { Container } from "../pixi/Aliases";
 
 export default class Scene {
-    constructor(game) {
+    constructor(key, game) {
+        this.key = key;
         this.game = game;
         this.spriteMap = game.spriteMap;
         this.mgr = game.sceneManager;
@@ -9,4 +10,8 @@ export default class Scene {
         this.initEachTime = false;
         this.container = new Container();
     }
+
+    init() {}
+    draw(game) {}
+    teardown() {}
 }

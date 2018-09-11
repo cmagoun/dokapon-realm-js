@@ -22,13 +22,11 @@ export default class Walk {
         this.slide.init(entity, cm, time);
 
         if(this.spriteDir === "right") {
-            entity.sprite.ref.scale.x = -1;
-            entity.sprite.ref.anchor.x = 1;
+            entity.edit("sprite", {scale:{x:-1, y:1}, anchor:{x:1, y:0}})
         }
         
         if(this.spriteDir === "left") {
-            entity.sprite.ref.scale.x = 1;
-            entity.sprite.ref.anchor.x = 0;
+            entity.edit("sprite", {scale:{x:1, y:1}, anchor:{x:0, y:0}})
         }
     }
 

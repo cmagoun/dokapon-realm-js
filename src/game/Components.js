@@ -1,11 +1,21 @@
 
-export const sprite = (name, x, y, spriteRef) => {
+export const sprite = (name, x, y, options) => {
+    if(!options) options = {
+        tint: 0xFFFFFF,
+        scale: {x:1, y:1},
+        anchor: {x:0, y:0},
+        ref: undefined
+    }
+
     return {
         cname:"sprite",
         name,
         x,
         y,
-        ref:spriteRef,
+        tint: options.tint,
+        scale: options.scale,
+        anchor: options.anchor,
+        ref: options.ref,
         initialized:false
     };
 };

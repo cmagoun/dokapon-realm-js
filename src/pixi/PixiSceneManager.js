@@ -6,6 +6,14 @@ export default class PixiSceneManager {
 
     setScreens(screens) {
         this.app.stage.removeChildren();
+
+        this.screens.forEach(x => {
+            const incoming = screens.filter(s => s.key === x.key);
+            if(!incoming && x.teardown) {
+                x.teardown();
+            }
+        })
+
         this.screens = screens;
         screens.forEach(s => {
             if(!s.initialized) {
@@ -14,5 +22,11 @@ export default class PixiSceneManager {
             }
             this.app.stage.addChild(s.container);
         });
+    }
+
+    draw() {
+        this.screens.forEach(s => {
+            if(s.draw) s.draw();
+        })
     }
 }

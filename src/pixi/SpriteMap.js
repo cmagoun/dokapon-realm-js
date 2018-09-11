@@ -32,19 +32,31 @@ export default class SpriteMap {
         if(!entity.sprite) return undefined;
 
         if(!entity.sprite.ref) {
-            resultSprite = this.get(entity.sprite.name);
-            resultSprite.x = entity.sprite.x;
-            resultSprite.y = entity.sprite.y;
+            resultSprite = this.get(entity.sprite.name);        
+            this.setSpriteProperties(resultSprite, entity.sprite);
+            
             compMgr.editComponentOf(entity.id, "sprite", {initialized:true, ref:resultSprite});
         } else {
             resultSprite = entity.sprite.ref;
+            this.setSpriteProperties(resultSprite, entity.sprite);
+
             if(!entity.sprite.initialized) {
-                resultSprite.x = entity.sprite.x;
-                resultSprite.y = entity.sprite.y;
                 compMgr.editComponentOf(entity.id, "sprite", {initialized:true, ref:resultSprite});
             }
         } 
 
         return resultSprite;
+    }
+
+    setSpriteProperties(rSprite, eSprite) {
+        rSprite.x = eSprite.x;
+        rSprite.y = eSprite.y;
+        rSprite.texture = this.getTexture(eSprite.name);
+        rSprite.tint = eSprite.tint;
+        rSprite.scale.x = eSprite.scale.x;
+        rSprite.scale.y = eSprite.scale.y;
+        rSprite.anchor.x = eSprite.anchor.x;
+        rSprite.anchor.y = eSprite.anchor.y;
+        //rSprite.rotation = eSprite.rotation;
     }
 }

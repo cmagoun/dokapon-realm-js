@@ -34,11 +34,13 @@ class Frames {
     }
 
     complete(entity, cm) {
-        entity.sprite.ref.texture = this.spriteMap.getTexture(this.orig);
+        //entity.sprite.ref.texture = this.spriteMap.getTexture(this.orig);
+        entity.sprite.name = this.orig;
     }
 
     swapToFrame(entity, index) {
-        entity.sprite.ref.texture = this.spriteMap.getTexture(this.frames[index]);
+        //entity.sprite.ref.texture = this.spriteMap.getTexture(this.frames[index]);
+        entity.sprite.name = this.frames[index];
     }
 
 }

@@ -62,16 +62,16 @@ class Arrows extends Component {
 
         switch(dir) {
             case "u":
-                add = {x:0, y:-24};
+                add = {x:0, y:-48};
                 break;
             case "d":
-                add = {x:0, y:24};
+                add = {x:0, y:48};
                 break;
             case "r":
-                add = {x:24, y:0};
+                add = {x:48, y:0};
                 break;
             case "l":
-                add = {x:-24, y:0};
+                add = {x:-48, y:0};
                 break;
         }
 

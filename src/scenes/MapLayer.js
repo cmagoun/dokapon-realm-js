@@ -2,8 +2,8 @@ import Scene from './Scene';
 import TiledMap from '../tiled/TiledMap';
 
 export default class MapLayer extends Scene {
-    constructor(game) {
-        super(game);
+    constructor(key, game) {
+        super(key, game);
     } 
 
     init() {

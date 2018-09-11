@@ -15,6 +15,10 @@ export default class Game extends BaseGameManager {
         if(this.cm.isDirty()) document.dispatchEvent(new CustomEvent("ecs_updated"));
     }
 
+    draw() {
+        this.sceneMgr.draw();
+    }
+
     updateGameState(newState, payload) {
         this.gameState = newState;
         document.dispatchEvent(

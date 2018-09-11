@@ -8,14 +8,15 @@ import * as Entities from './game/Entities';
 import Arrows from './ui/Arrows';
 
 import MapLayer from './scenes/MapLayer';
+import SceneOne from './scenes/SceneOne';
 
 const app = new Application();
 app.renderer.resize(window.innerWidth*.99, window.innerHeight*.99);
 document.body.appendChild(app.view);
 
 const game = new Game(app);
-Entities.paladin("p1", 24, 24, game.cm);
-Entities.ranger("r1", 48, 48, game.cm);
+Entities.paladin("p1", 240, 240, game.cm);
+Entities.ranger("r1", 480, 480, game.cm);
 
 Loader
     .add("creatures", "dist/creatures.png")
@@ -28,14 +29,16 @@ Loader
 function setup() {
     setupSprites(game);
 
-    const mapLayer = new MapLayer(game);
-    game.sceneMgr.setScreens([mapLayer]);
+    const mapLayer = new MapLayer("map", game);
+    const playerLayer = new SceneOne("player", game);
+    game.sceneMgr.setScreens([mapLayer, playerLayer]);
 
     function gameLoop() {
         requestAnimationFrame(gameLoop);
         game.update();
-        game.app.render(game.app.stage);
         game.runAnimations();
+        game.draw();
+        game.app.render(game.app.stage);
         game.stopEvent = false;
     }
 
@@ -53,9 +56,9 @@ ReactDOM.render(
     document.getElementById('ui'));
 
 function setupSprites(game) {
-    game.spriteMap.loadTexture("paladin1", "dist/creatures.png", 24, 24, 24, 24);
-    game.spriteMap.loadTexture("paladin2","dist/creatures.png", 24, 48, 24, 24);
-    game.spriteMap.loadTexture("ranger1", "dist/creatures.png", 48, 24, 24, 24);
-    game.spriteMap.loadTexture("ranger2", "dist/creatures.png", 48, 48, 24, 24);
+    game.spriteMap.loadTexture("paladin1", "dist/creatures.png", 48, 48, 48, 48);
+    game.spriteMap.loadTexture("paladin2","dist/creatures.png", 48, 96, 48, 48);
+    game.spriteMap.loadTexture("ranger1", "dist/creatures.png", 96, 48, 48, 48);
+    game.spriteMap.loadTexture("ranger2", "dist/creatures.png", 96, 96, 48, 48);
 }
 
