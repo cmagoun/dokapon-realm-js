@@ -6,7 +6,7 @@ it('adds entity and gets id back', () => {
     const e = cm.createEntity();
 
     expect(e.id).toHaveLength(36);
-    expect(Array.from(cm.etoc.get(e.id).keys())).toEqual([]);
+    expect(Array.from(cm.etoc.get(e.id).entries())).toEqual([]);
 });
 
 it('adds entity with existing id', () => {
@@ -15,7 +15,7 @@ it('adds entity with existing id', () => {
     const e = cm.createEntity('xyz');
 
     expect(e.id).toHaveLength(3);
-    expect(Array.from(cm.etoc.get('xyz').keys())).toEqual([]);
+    expect(Array.from(cm.etoc.get('xyz').entries())).toEqual([]);
 });
 
 it('adds component to an entity', () => {
@@ -25,8 +25,8 @@ it('adds component to an entity', () => {
     e.add({cname:"test", msg:"Hello World"});
 
     //checking the cm internal maps to be sure they are correct
-    expect(cm.etoc.get(e.id).get("test")).toBe(1);
-    expect(cm.ctoe.get("test").get(e.id)).toBe(1);
+    expect(cm.etoc.get(e.id).has("test")).toBe(true);
+    expect(cm.ctoe.get("test").has(e.id)).toBe(true);
     expect(cm.component(e.id, "test").msg).toBe("Hello World");
 });
 
@@ -44,9 +44,9 @@ it('removes component from an entity', () => {
     const after = e.read().gone;
     expect(after).toEqual(undefined);
 
-    expect(cm.etoc.get(e.id).get("test")).toBe(1);
-    expect(cm.ctoe.get("test").get(e.id)).toBe(1);
-    expect(cm.ctoe.get("gone").get(e.id)).toBe(undefined);
+    expect(cm.etoc.get(e.id).has("test")).toBe(true);
+    expect(cm.ctoe.get("test").has(e.id)).toBe(true);
+    expect(cm.ctoe.get("gone").has(e.id)).toBe(false);
 })
 
 it('can return entity as object', () => {

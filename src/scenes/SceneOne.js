@@ -1,5 +1,5 @@
 import Scene from './Scene';
-import Walk from '../animations/Walk';
+
 
 export default class SceneOne extends Scene {
     constructor(key, game) {
@@ -10,15 +10,15 @@ export default class SceneOne extends Scene {
 
     init() {
         document.addEventListener("click", this.onClick);
-        this.loadEntities();
+        this.drawEntities();
     }
 
     draw() {
         this.container.removeChildren();
-        this.loadEntities();
+        this.drawEntities();
     }
 
-    loadEntities() {
+    drawEntities() {
         const entities = this.game.entities();
         entities.forEach(e => {
             const sprite = this.spriteMap.getSprite(e, this.game.cm);

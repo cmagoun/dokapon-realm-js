@@ -5,6 +5,7 @@ class ComponentManager {
         this.ctoe = new Map();
         this.indexesByComp = new Map();
         this.indexesByName = new Map();
+
         this.dirty = false;
     }
 
@@ -35,7 +36,7 @@ class ComponentManager {
     createEntity(id) {
         const newId = id === undefined ? guid() : id;
 
-        this.etoc.set(newId, new Map());
+        this.etoc.set(newId, new Set());
         this.emap.set(newId, {id:newId});
         this.dirty = true;
 
@@ -67,8 +68,8 @@ class ComponentManager {
             this.createComponent(cname);
         }
 
-        this.ctoe.get(cname).set(eid, 1);
-        this.etoc.get(eid).set(cname, 1);
+        this.ctoe.get(cname).add(eid);
+        this.etoc.get(eid).add(cname);
         this.emap.get(eid)[cname] = data;
 
         const index = this.indexesByComp.get(cname);
@@ -132,8 +133,8 @@ class ComponentManager {
     }
 
     createComponent(name) {
-        const map = new Map();
-        this.ctoe.set(name, map);
+        const set = new Set();
+        this.ctoe.set(name, set);
     }
 
     //probably don't need this anymore?
@@ -270,10 +271,10 @@ class ComponentIndex {
         const key = this.keyGenerator(comp);
         const existing = this.index.get(key);
         if(existing === undefined) {
-            this.index.set(key, new Map());
+            this.index.set(key, new Set());
         }
 
-        this.index.get(key).set(id, 1);
+        this.index.get(key).add(id);
     }
 
     remove(comp, id) {
