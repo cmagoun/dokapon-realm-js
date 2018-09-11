@@ -227,6 +227,28 @@ it('can find similar entities', () => {
     expect(result[0].id).toBe("i1");
 })
 
+it('can destroy an entity', () => {
+    const cm = new ComponentManager();
+    let e1 = cm.createEntity("e1")
+        .add({cname:"x", value:1})
+        .add({cname:"y", value:1})
+        .read();
+
+    expect(e1.x.value).toBe(1);
+
+    e1.destroy();
+    e1 = cm.entity("e1");
+    
+    expect(e1.x.value).toEqual(1);
+    expect(e1.isToBeDestroyed()).toBe(true);
+
+    cm.cleanUp();
+    e1 = cm.entity("e1");
+    expect(e1.x).toBe(undefined);
+
+
+})
+
 // it('entitiesWith speed test', () => {
 //     const num = 10000;
 //     const cm = new ComponentManager();

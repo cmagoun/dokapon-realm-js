@@ -1,5 +1,6 @@
 import Scene from './Scene';
 
+const DIRTY = true;
 
 export default class SceneOne extends Scene {
     constructor(key, game) {
@@ -18,12 +19,13 @@ export default class SceneOne extends Scene {
     }
 
     drawEntities() {
-        const entities = this.game.cm.entitiesWith("sprite", true);
+        const entities = this.game.cm.entitiesWith("sprite", DIRTY);
         entities.forEach(e => {
             const sprite = this.spriteMap.getSprite(e, this.game.cm);
             
             if(e.isToBeDestroyed())  {this.container.removeChild(sprite); return;}     
             this.container.addChild(sprite);
+            console.log(this.container.children);
         });
     }
 
