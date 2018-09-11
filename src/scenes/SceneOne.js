@@ -14,14 +14,15 @@ export default class SceneOne extends Scene {
     }
 
     draw() {
-        this.container.removeChildren();
         this.drawEntities();
     }
 
     drawEntities() {
-        const entities = this.game.entities();
+        const entities = this.game.cm.entitiesWith("sprite", true);
         entities.forEach(e => {
             const sprite = this.spriteMap.getSprite(e, this.game.cm);
+            
+            if(e.isToBeDestroyed())  {this.container.removeChild(sprite); return;}     
             this.container.addChild(sprite);
         });
     }
@@ -30,6 +31,6 @@ export default class SceneOne extends Scene {
         if(this.game.stopEvent) return;
 
         const pally = this.game.entity("p1");
-        pally.edit("sprite", {tint:0x44FF44});
+        pally.destroy();
     }
 }

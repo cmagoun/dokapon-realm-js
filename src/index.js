@@ -40,6 +40,7 @@ function setup() {
         game.draw();
         game.app.render(game.app.stage);
         game.stopEvent = false;
+        game.cm.cleanUp();
     }
 
     requestAnimationFrame(gameLoop);

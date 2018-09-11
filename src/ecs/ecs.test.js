@@ -49,6 +49,20 @@ it('removes component from an entity', () => {
     expect(cm.ctoe.get("gone").has(e.id)).toBe(false);
 })
 
+it('checks is dirty on entity', () => {
+    const cm = new ComponentManager();
+
+    const e = cm.createEntity();
+    e.add({cname:"test", msg:"Hello World"});
+    e.add({cname:"gone", test:1, msg:"I am gone"});
+
+    const result = cm.entity(e.id);
+
+    expect(result.isDirty()).toBe(true);
+    cm.cleanUp();
+    expect(result.isDirty()).toBe(false);
+})
+
 it('can return entity as object', () => {
     const cm = new ComponentManager();
 

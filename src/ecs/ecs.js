@@ -6,13 +6,18 @@ class ComponentManager {
         this.indexesByComp = new Map();
         this.indexesByName = new Map();
 
-        this.dirty = false;
+        this.dirtyEntities = new Set();
+        this.toBeDestroyed = new Set();
     }
 
     isDirty() {
-        const result = this.dirty;
-        this.dirty = false;
-        return result;
+        return this.dirtyEntities.size > 0;
+    }
+
+    cleanUp() {
+        this.toBeDestroyed.forEach(id => this.destroyEntity(id));
+        this.dirtyEntities.clear();
+        this.toBeDestroyed.clear();
     }
 
     exists(id) {
@@ -30,7 +35,7 @@ class ComponentManager {
         this.etoc.clear();
         this.ctoe.clear();
         this.emap.clear();
-        this.dirty = true;
+        this.dirtyEntities.clear();
     }
 
     createEntity(id) {
@@ -38,7 +43,7 @@ class ComponentManager {
 
         this.etoc.set(newId, new Set());
         this.emap.set(newId, {id:newId});
-        this.dirty = true;
+        this.dirtyEntities.add(id);
 
         return new Builder(newId, this);
     }
@@ -56,7 +61,7 @@ class ComponentManager {
 
         this.etoc.delete(id);
         this.emap.delete(id);
-        this.dirty = true;
+
     }
 
     addComponentTo(eid, cname, data) {
@@ -77,7 +82,7 @@ class ComponentManager {
             index.set(data, eid);
         }
 
-        this.dirty = true;
+        this.dirtyEntities.add(eid);
     }
 
     addComponent(eid, data) {
@@ -100,7 +105,7 @@ class ComponentManager {
 
         this.emap.get(eid)[cname] = undefined;
 
-        this.dirty = true;
+        this.dirtyEntities.add(eid);
     }
 
     checkOnRemove(eid, cname) {
@@ -129,7 +134,7 @@ class ComponentManager {
             index.set(eobj[cname], eid);
         }
      
-        this.dirty = true;
+        this.dirtyEntities.add(eid);
     }
 
     createComponent(name) {
@@ -142,14 +147,17 @@ class ComponentManager {
         return this.emap.get(entity)[cname] || {};  
     }
 
-    entitiesWith(cnames) {
+    entitiesWith(cnames, onlyDirty) {
         const names = Array.isArray(cnames) ? cnames : [cnames];
 
         const maps = names.map(n => this.ctoe.get(n));
         if(maps.includes(undefined)) return []; //one of the components does not exist
 
         const ids = this.intersectKeys(maps);
-        return ids.map(id => this.entity(id));
+        
+        return onlyDirty
+            ? ids.filter(id => this.dirtyEntities.has(id)).map(id => this.entity(id))
+            : ids.map(id => this.entity(id));
     }
 
     entitiesIn(indexName, key, cnames) {
@@ -188,7 +196,9 @@ class ComponentManager {
         result.add = (component) => this.addComponent(result.id, component);
         result.edit = (cname, data) => this.editComponentOf(result.id, cname, data);
         result.remove = (cname) => this.removeComponentFrom(result.id, cname);
-        result.destroy = () => this.destroyEntity(id);
+        result.destroy = () => {this.toBeDestroyed.add(id); this.dirtyEntities.add(id);}
+        result.isDirty = () => this.dirtyEntities.has(id);
+        result.isToBeDestroyed = () => this.toBeDestroyed.has(id);
         return result;
     }
 
@@ -208,9 +218,8 @@ class ComponentManager {
         //maps.sort((a, b) => a.size - b.size);
         const first = maps[0];
 
-
-        first.forEach((v,k) => {
-            if(this.isInAll(k, maps)) result.push(k);
+        first.forEach((v) => {
+            if(this.isInAll(v, maps)) result.push(v);
         });
 
         return result;
@@ -220,7 +229,7 @@ class ComponentManager {
     //providing the keys in the first place
     isInAll(key, maps) {
         for(let i = 1; i < maps.length; i++) {
-            if(maps[i].get(key) === undefined) return false;
+            if(maps[i].has(key) === false) return false;
         }
 
         return true;
