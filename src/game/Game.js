@@ -1,6 +1,6 @@
 import {BaseGameManager} from '../ecs/GameManager';
-import PixiSceneManager from './PixiSceneManager';
-import SpriteMap from './SpriteMap';
+import PixiSceneManager from '../pixi/PixiSceneManager';
+import SpriteMap from '../pixi/SpriteMap';
 
 export default class Game extends BaseGameManager {
     constructor(app) {
