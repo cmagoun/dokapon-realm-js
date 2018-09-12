@@ -2,6 +2,7 @@ export default class PixiSceneManager {
     constructor(app) {
         this.app = app;
         this.screens = [];
+        this.cameraOrigin = {x:0, y:0};
     }
 
     setScreens(screens) {
@@ -20,7 +21,16 @@ export default class PixiSceneManager {
                 if(s.init) s.init();
                 if(!s.initEachTime) s.initialized = true;
             }
-            this.app.stage.addChild(s.container);
+            this.app.stage.addChild(this.transformedContainer(s, this.cameraOrigin));
+        });
+    }
+
+    moveCamera(x, y) {
+        this.cameraOrigin = {x,y};
+
+        this.app.stage.removeChildren();
+        this.screens.forEach(s => {
+            this.app.stage.addChild(this.transformedContainer(s, this.cameraOrigin));
         });
     }
 
@@ -28,5 +38,11 @@ export default class PixiSceneManager {
         this.screens.forEach(s => {
             if(s.draw) s.draw();
         })
+    }
+
+    transformedContainer(scene, origin) {
+        return scene.affectedByCamera
+            ? Object.assign(scene.container, {x:-origin.x, y:-origin.y})
+            : scene.container;
     }
 }

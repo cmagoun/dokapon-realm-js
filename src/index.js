@@ -8,7 +8,7 @@ import * as Entities from './game/Entities';
 import Arrows from './ui/Arrows';
 
 import MapLayer from './scenes/MapLayer';
-import SceneOne from './scenes/SceneOne';
+import PlayerLayer from './scenes/PlayerLayer';
 
 const app = new Application();
 app.renderer.resize(window.innerWidth*.99, window.innerHeight*.99);
@@ -30,7 +30,7 @@ function setup() {
     setupSprites(game);
 
     const mapLayer = new MapLayer("map", game);
-    const playerLayer = new SceneOne("player", game);
+    const playerLayer = new PlayerLayer("player", game);
     game.sceneMgr.setScreens([mapLayer, playerLayer]);
 
     function gameLoop() {

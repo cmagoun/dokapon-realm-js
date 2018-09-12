@@ -19,6 +19,10 @@ export default class Game extends BaseGameManager {
         this.sceneMgr.draw();
     }
 
+    moveCamera(x, y) {
+        this.sceneMgr.moveCamera(x,y);
+    }
+
     updateGameState(newState, payload) {
         this.gameState = newState;
         document.dispatchEvent(

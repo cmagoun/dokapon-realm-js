@@ -14,4 +14,12 @@ export default class Scene {
     init() {}
     draw(game) {}
     teardown() {}
+
+    addChild(child) {
+        this.container.addChild(child);
+    }
+
+    removeChild(child) {
+        this.container.removeChild(child);
+    }
 }
