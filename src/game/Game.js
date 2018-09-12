@@ -3,9 +3,10 @@ import PixiSceneManager from '../pixi/PixiSceneManager';
 import SpriteMap from '../pixi/SpriteMap';
 
 export default class Game extends BaseGameManager {
-    constructor(app) {
+    constructor(app, scenario) {
         super();
         this.app = app;
+        this.scenario = scenario;
         this.spriteMap = new SpriteMap();
         this.sceneMgr = new PixiSceneManager(app);
         this.stopEvent = false;

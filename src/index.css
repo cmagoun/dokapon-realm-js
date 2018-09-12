@@ -12,8 +12,8 @@ canvas {
   position : absolute
   ; left : 0
   ; top : 0
-  ; width : 98%
-  ; height : 98%
+  ; width : 99%
+  ; height : 99%
 
   /*Important: set the z-index to 1 so that it appears above Hexi's canvas*/
   ; z-index: 1

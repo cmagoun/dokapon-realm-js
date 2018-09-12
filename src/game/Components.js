@@ -25,12 +25,27 @@ export const animations = (animations) => {
         cname: "animations",
         ...animations
     }
-}
+};
 
 export const tag = (value) => {
     return {
         cname:"tag",
         value
     };
+};
+
+export const pos = (map, id) => {
+    return {
+        cname: "pos",
+        map,
+        id
+    }
+};
+
+export const profession = (value) => {
+    return {
+        cname: "profession",
+        value
+    }
 };
 

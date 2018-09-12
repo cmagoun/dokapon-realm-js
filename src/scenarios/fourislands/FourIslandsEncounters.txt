@@ -1,0 +1,4 @@
+{"RegionId":"1", "EncounterKey":"KOBOLD_GRUNT", "Frequency": "30", "MinLevel":"1", "MaxLevel":"2"}
+{"RegionId":"1", "EncounterKey":"KOBOLD_ARCHER", "Frequency": "30", "MinLevel":"1", "MaxLevel":"2"}
+{"RegionId":"1", "EncounterKey":"KOBOLD_WARRIOR", "Frequency": "10", "MinLevel":"1", "MaxLevel": "3"}
+{"RegionId":"1", "EncounterKey":"KOBOLD_SHAMAN", "Frequency": "2", "MinLevel":"1", "MaxLevel": "3"}

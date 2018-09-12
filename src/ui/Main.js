@@ -1,38 +1,41 @@
 import React, { Component } from 'react';
 import withContext from '../ecs/withContext';
-
-const style = {
-    main: {
-        backgroundColor: "blue", 
-        position: "absolute",
-        color: "white",
-        bottom: "100px",
-        left: "100px"
-    }
-}
+import States from '../game/GameStates';
+import ScenarioIntro from './ScenarioIntro';
 
 class Main extends Component {
     constructor(props) {
         super(props);
         this.ecsUpdated = this.updateScreen.bind(this);
-        this.state = {toggle:true};
+        this.state = {components:[]};
     }
 
     componentDidMount() {
-        document.addEventListener("ecs_updated", this.ecsUpdated);
+        document.addEventListener("game_state_changed", this.ecsUpdated);
     }
 
     componentWillUnmount() {
-        document.removeEventListener("ecs_updated", this.ecsUpdated);
+        document.removeEventListener("game_state_changed", this.ecsUpdated);
     }
 
     render() {
-        const pally = this.props.game.entity("p1");
-        return <div style={style.main}>{pally.sprite.x}, {pally.sprite.y}</div>
+        const length = this.state.components.length;
+        return <div>
+            {this.state.components
+                .map((c,i) => React.cloneElement(c, {key:i, events:i===length-1}))}
+        </div>
     }
 
     updateScreen(evt) {
-        this.setState({toggle:!this.state.toggle});
+        const gameState = evt.detail.state;
+        switch(gameState) {
+            case States.SCENARIO_START_SCREEN:
+                this.setState({components:[<ScenarioIntro/>]});
+                break;
+            // case States.MAIN_GAME:
+            //     this.setState({components:[<RegularOldUi/>]});
+            //     break;
+        }
     }
 }
 
