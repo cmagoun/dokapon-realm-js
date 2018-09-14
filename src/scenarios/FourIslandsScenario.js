@@ -7,12 +7,12 @@ export default class FourIslandsScenario {
         this.maps = new Map();
         this.loader = loader
 
-        this.introText = `This is the story of a young, strapping, adventurous, heroic lad named... Tim.
+        this.introText = `<p>This is the story of a young, strapping, adventurous, heroic lad named... Tim.
         Tim will likely die here, but that is ok, because I am just trying to fill out some text to see
-        just how bad this looks on screen.
+        just how bad this looks on screen.</p>
         
-        Sincerely,
-        The GM`
+        <p>Sincerely,</p>
+        <p>The GM</p>`
     }
 
     init() {

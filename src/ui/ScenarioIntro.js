@@ -16,13 +16,14 @@ const style = {
         border: "3px solid grey"
     },
     text: {
-        height: "90%",
+        height: "80%",
         width: "100%"
     },
     button: {
         display:"flex",
         flexDirection:"row",
-        justifyContent:"center"
+        justifyContent:"center",
+        height:"10%"
     }
 }
 
@@ -36,7 +37,7 @@ class ScenarioIntro extends Component {
     render() {
         return <div style={style.container} onClick={this.onDivClick}>
 
-            <div style={style.text}>{this.props.game.scenario.introText}</div>
+            <div style={style.text} dangerouslySetInnerHTML={{__html: this.props.game.scenario.introText}}></div>
 
             <div style={style.button} onClick={this.onButtonClick}>
                 <button>OK</button>
