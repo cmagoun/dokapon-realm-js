@@ -14,7 +14,6 @@ class Frames {
         this.lasttime = time;
         this.orig = entity.sprite.name;
         this.swapToFrame(entity, 0);
-        //cm.editComponentOf(entity.id, "sprite", {name:this.frames[0]});
     }
 
     update(entity, cm, time) {
@@ -34,12 +33,10 @@ class Frames {
     }
 
     complete(entity, cm) {
-        //entity.sprite.ref.texture = this.spriteMap.getTexture(this.orig);
         entity.sprite.name = this.orig;
     }
 
     swapToFrame(entity, index) {
-        //entity.sprite.ref.texture = this.spriteMap.getTexture(this.frames[index]);
         entity.sprite.name = this.frames[index];
     }
 

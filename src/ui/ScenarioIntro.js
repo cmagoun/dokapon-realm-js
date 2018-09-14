@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import withContext from '../ecs/withContext';
 import {centerInWindow} from '../utils/utils';
+import States from '../game/GameStates';
 
 const obj = {height:300, width:400};
 centerInWindow(obj);
@@ -39,22 +40,18 @@ class ScenarioIntro extends Component {
 
             <div style={style.text} dangerouslySetInnerHTML={{__html: this.props.game.scenario.introText}}></div>
 
-            <div style={style.button} onClick={this.onButtonClick}>
-                <button>OK</button>
+            <div style={style.button}>
+                <button onClick={this.onButtonClick}>OK</button>
             </div>
         </div>   
     }
 
     handleClick(evt) {
-        evt.preventDefault();
-        evt.stopPropagation();
-        this.props.game.stopEvent = true;
+
     }
 
     handleButton(evt) {
-        evt.preventDefault();
-        evt.stopPropagation();
-        this.props.game.stopEvent = true;
+        this.props.game.updateGameState(States.START_GAME);
     }
 }
 

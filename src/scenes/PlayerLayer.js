@@ -22,6 +22,7 @@ export default class PlayerLayer extends Scene {
     drawEntities() {
         const entities = this.game.cm.entitiesWith("sprite", DIRTY);
         entities.forEach(e => {
+            if(e.sprite.x < 1 || e.sprite.y < 1) {this.removeChild(sprite); return;}
             const sprite = this.spriteMap.getSprite(e, this.game.cm);
             
             if(e.isToBeDestroyed())  {this.removeChild(sprite); return;}     
@@ -30,7 +31,7 @@ export default class PlayerLayer extends Scene {
     }
 
     handleClick() {
-        if(this.game.stopEvent) return;
+        if(this.game.modal) return;
         this.game.moveCamera(480, 480);
     }
 }

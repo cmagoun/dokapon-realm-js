@@ -1,6 +1,8 @@
 import {BaseGameManager} from '../ecs/GameManager';
 import PixiSceneManager from '../pixi/PixiSceneManager';
 import SpriteMap from '../pixi/SpriteMap';
+import States from './GameStates';
+import * as Components from './Components';
 
 export default class Game extends BaseGameManager {
     constructor(app, scenario) {
@@ -9,11 +11,21 @@ export default class Game extends BaseGameManager {
         this.scenario = scenario;
         this.spriteMap = new SpriteMap();
         this.sceneMgr = new PixiSceneManager(app);
-        this.stopEvent = false;
+        this.modal = false;
     }
 
     update() {
         if(this.cm.isDirty()) document.dispatchEvent(new CustomEvent("ecs_updated"));
+
+        switch(this.gameState) {
+            case States.SCENARIO_START_SCREEN:
+                //no op
+                break;
+            case States.START_GAME:
+                this.scenario.setInitialGameState(this);
+                this.updateGameState(States.START_TURN);
+                break;
+        }
     }
 
     draw() {
@@ -24,6 +36,14 @@ export default class Game extends BaseGameManager {
         this.sceneMgr.moveCamera(x,y);
     }
 
+    startModal() {
+        this.modal = true;
+    }
+
+    endModal() {
+        this.modal = false;
+    }
+
     updateGameState(newState, payload) {
         this.gameState = newState;
         document.dispatchEvent(
@@ -31,5 +51,29 @@ export default class Game extends BaseGameManager {
                 "game_state_changed", 
                 { "detail": { state: newState, payload } }
             ));
+    }
+
+    //helpers
+    players() {
+        return this.cm.entitiesWith("tag").filter(e => e.tag.value === "player");
+    }
+
+    setPlayerPos(entity, mapName, spaceId, setSpritePos) {
+        if(!entity.pos) {
+            entity.add(Components.pos(mapName, spaceId));
+        } else {
+            entity.edit("pos", {mapName, spaceId});
+        }
+
+        if(!setSpritePos) return;
+        
+        const map = this.scenario.maps.get(mapName);
+        const pos = map.getPosition(spaceId);
+
+        if(!entity.sprite) {
+            entity.add(Components.sprite(`${entity.profession.value}1`, pos.x * 48, pos.y * 48));
+        } else {
+            entity.edit("sprite", {name:`${entity.profession.value}1`, x:pos.x*48, y:pos.y*48});
+        }
     }
 }

@@ -1,4 +1,12 @@
 import spaces from './fourislands/FourIslandsMap';
+import GameMap from '../game/GameMap';
+
+const startPos = {
+    paladin: {map:"fourislands", id:16},
+    ranger: {map:"fourislands", id:11}
+}
+
+const SET_SPRITE = true;
 
 export default class FourIslandsScenario {
     constructor(loader) {
@@ -28,6 +36,14 @@ export default class FourIslandsScenario {
     }
 
     loadmaps() {
-        this.maps.set("fourislands",  spaces);
+        this.maps.set("fourislands",  new GameMap("fourislands", spaces));
+    }
+
+    setInitialGameState(game) {
+        const players = game.players();
+        players.forEach(p => {
+            const pos = startPos[p.profession.value];
+            game.setPlayerPos(p, pos.map, pos.id, SET_SPRITE);
+        });
     }
 }

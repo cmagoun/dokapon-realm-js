@@ -30,11 +30,13 @@ class Main extends Component {
         const gameState = evt.detail.state;
         switch(gameState) {
             case States.SCENARIO_START_SCREEN:
+                this.props.game.startModal();
                 this.setState({components:[<ScenarioIntro/>]});
                 break;
-            // case States.MAIN_GAME:
-            //     this.setState({components:[<RegularOldUi/>]});
-            //     break;
+            case States.START_GAME:
+                this.props.game.endModal();
+                this.setState({components:[]});
+                break;
         }
     }
 }

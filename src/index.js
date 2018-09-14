@@ -9,7 +9,7 @@ import FourIslandsScenario from './scenarios/FourIslandsScenario';
 import States from './game/GameStates';
 import TurnLoop from './ecs/TurnLoop';
 import Main from './ui/Main';
-
+import * as Entities from './game/Entities';
 
 const app = new Application();
 app.renderer.resize(window.innerWidth*.99, window.innerHeight*.99);
@@ -25,6 +25,10 @@ const scenario = new FourIslandsScenario(Loader);
 scenario.init();
 
 const game = new Game(app, scenario);
+
+//this is garbage. we are doing this to test
+Entities.player("BOB", "paladin", game.cm);
+Entities.player("JON", "ranger", game.cm);
 
 Loader.load(setup);
 
