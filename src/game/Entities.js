@@ -14,9 +14,3 @@ export const player = (name, profession, cm) => {
 const walk = (from, to, gm) => (frames) => new Walk(
     frames, from, to, 2.0, gm.spriteMap
 );
-
-export const wall = (spriteName, x, y, cm) => {
-    return cm.createEntity(`wall_${x}_${y}`)
-        .add(Components.sprite(spriteName, x, y))
-        .add(Components.tag("wall"));
-};

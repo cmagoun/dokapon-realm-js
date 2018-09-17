@@ -12,17 +12,19 @@ export default class PlayerLayer extends Scene {
 
     init() {
         document.addEventListener("click", this.onClick);
-        this.drawEntities();
+        this.drawPlayers();
     }
 
     draw() {
-        this.drawEntities();
+        this.drawPlayers();
     }
 
-    drawEntities() {
+    drawPlayers() {
         const entities = this.game.cm.entitiesWith("sprite", DIRTY);
         entities.forEach(e => {
+            //do I need this?
             if(e.sprite.x < 1 || e.sprite.y < 1) {this.removeChild(sprite); return;}
+
             const sprite = this.spriteMap.getSprite(e, this.game.cm);
             
             if(e.isToBeDestroyed())  {this.removeChild(sprite); return;}     

@@ -31,7 +31,6 @@ const style = {
 class ScenarioIntro extends Component {
     constructor(props) {
         super(props);
-        this.onDivClick = this.handleClick.bind(this);
         this.onButtonClick = this.handleButton.bind(this);
     }
 
@@ -44,10 +43,6 @@ class ScenarioIntro extends Component {
                 <button onClick={this.onButtonClick}>OK</button>
             </div>
         </div>   
-    }
-
-    handleClick(evt) {
-
     }
 
     handleButton(evt) {

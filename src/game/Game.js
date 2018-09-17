@@ -3,6 +3,7 @@ import PixiSceneManager from '../pixi/PixiSceneManager';
 import SpriteMap from '../pixi/SpriteMap';
 import States from './GameStates';
 import * as Components from './Components';
+import {tileSize} from '../utils/constants';
 
 export default class Game extends BaseGameManager {
     constructor(app, scenario) {
@@ -55,9 +56,12 @@ export default class Game extends BaseGameManager {
 
     //helpers
     players() {
-        return this.cm.entitiesWith("tag").filter(e => e.tag.value === "player");
+        return this.cm
+            .entitiesWith("tag")
+            .filter(e => e.tag.value === "player");
     }
 
+    //needs to be generalized
     setPlayerPos(entity, mapName, spaceId, setSpritePos) {
         if(!entity.pos) {
             entity.add(Components.pos(mapName, spaceId));
@@ -71,9 +75,9 @@ export default class Game extends BaseGameManager {
         const pos = map.getPosition(spaceId);
 
         if(!entity.sprite) {
-            entity.add(Components.sprite(`${entity.profession.value}1`, pos.x * 48, pos.y * 48));
+            entity.add(Components.sprite(`${entity.profession.value}1`, pos.x * tileSize, pos.y * tileSize));
         } else {
-            entity.edit("sprite", {name:`${entity.profession.value}1`, x:pos.x*48, y:pos.y*48});
+            entity.edit("sprite", {name:`${entity.profession.value}1`, x:pos.x * tileSize, y:pos.y * tileSize});
         }
     }
 }
