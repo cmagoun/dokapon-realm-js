@@ -8,7 +8,8 @@ export default class MapLayer extends Scene {
     } 
 
     init() {
-        this.map = new TiledMap("dist/FourIslands.tmx", "fourislands");
+        const scen = this.game.scenario;
+        this.map = scen.tiled.get(scen.startMap);
         this.addChild(this.map);
     }
 }

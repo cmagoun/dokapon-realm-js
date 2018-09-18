@@ -1,5 +1,6 @@
 import spaces from './fourislands/FourIslandsMap';
 import GameMap from '../game/GameMap';
+import TiledMap from '../tiled/TiledMap';
 
 const startPos = {
     paladin: {map:"fourislands", id:16},
@@ -13,31 +14,37 @@ export default class FourIslandsScenario {
         this.name="fourislands"
         this.displayName="Four Islands";
         this.maps = new Map();
+        this.tiled = new Map();
+
         this.loader = loader
+
+        this.mapData = [
+            {alias:"fourislands", path:"dist/FourIslands.tmx", spaces:spaces}
+        ];
+
+        this.startMap = "fourislands";
 
         this.introText = `<p>This is the story of a young, strapping, adventurous, heroic lad named... Tim.
         Tim will likely die here, but that is ok, because I am just trying to fill out some text to see
         just how bad this looks on screen.</p>
         
         <p>Sincerely,</p>
-        <p>The GM</p>`
+        <p>The GM</p>`;
     }
 
-    init() {
-        this.loadResources();
-        this.loadmaps();
-        //this.loadmonsters();
-        //this.loaditems();
-        //this.loadencounters();
+    loadMaps() {
+        this.mapData.forEach(md => {
+            this.loader.add(md.alias, md.path);
+            this.maps.set(md.alias,  new GameMap(md.alias, md.spaces));
+        });
     }
 
-    loadResources() {
-        this.loader.add("fourislands", "dist/FourIslands.tmx");
+    loadTiled() {
+        this.mapData.forEach(md => {
+            this.tiled.set(md.alias, new TiledMap(md.path, md.alias));
+        })
     }
 
-    loadmaps() {
-        this.maps.set("fourislands",  new GameMap("fourislands", spaces));
-    }
 
     setInitialGameState(game) {
         const players = game.players();

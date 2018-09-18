@@ -15,5 +15,4 @@ export const Text = PIXI.Text;
 PIXI.loaders.Loader.addPixiMiddleware(tiledMapLoader);
 PIXI.loader.use(tiledMapLoader());
 
-export const TiledMap = PIXI.extras.TiledMap;
 

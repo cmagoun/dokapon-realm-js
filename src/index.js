@@ -22,17 +22,20 @@ Loader
     .add("roads", "dist/roads.png");
 
 const scenario = new FourIslandsScenario(Loader);
-scenario.init();
+scenario.loadMaps();
 
 const game = new Game(app, scenario);
-
-//this is garbage. we are doing this to test
-Entities.player("BOB", "paladin", game.cm);
-Entities.player("JON", "ranger", game.cm);
 
 Loader.load(setup);
 
 function setup() {
+    //must happen AFTER Loader.load
+    scenario.loadTiled();
+
+    //this is garbage. we are doing this to test
+    Entities.player("BOB", "paladin", game.cm);
+    Entities.player("JON", "ranger", game.cm);
+
     setupSprites(game);
 
     const mapLayer = new MapLayer("map", game);
