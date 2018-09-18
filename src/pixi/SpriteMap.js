@@ -15,14 +15,25 @@ export default class SpriteMap {
         this.textureMap.set(key, {texture: newTex, frame:rec});
     }
 
+    copyTexture(oldKey, newKey) {
+        const tex = this.getTexture(oldKey);
+        this.textureMap.set(newKey, {texture: tex.baseTexture, frame: tex.frame});
+        return this.get(newKey);
+    }
+
+
     getTexture(key) {
         const result =  this.textureMap.get(key);
+        if(result === undefined) return undefined;
+
         const newTex = new Texture(result.texture, result.frame);
         return newTex;
     }
 
     get(key) {
         const newTex = this.getTexture(key);
+        if(newTex === undefined) return undefined;
+
         return new Sprite(newTex);
     }
 
@@ -44,6 +55,22 @@ export default class SpriteMap {
                 compMgr.editComponentOf(entity.id, "sprite", {initialized:true, ref:resultSprite});
             }
         } 
+
+        return resultSprite;
+    }
+
+    getCircle(entity, compMgr) {
+        let resultSprite;
+        if(!entity.sprite) return undefined;
+
+        if(!entity.sprite.circle) {
+            resultSprite = this.get(`${entity.id}_circle`);
+            if(resultSprite === undefined) resultSprite = this.copyTexture("circle", `${entity.id}_circle`);
+
+            compMgr.editComponentOf(entity.id, "sprite", {circle:resultSprite});
+        } else {
+            resultSprite = entity.sprite.circle;
+        }
 
         return resultSprite;
     }

@@ -3,8 +3,10 @@ import GameMap from '../game/GameMap';
 import TiledMap from '../tiled/TiledMap';
 
 const startPos = {
-    paladin: {map:"fourislands", id:16},
-    ranger: {map:"fourislands", id:11}
+    whiteknight: {map:"fourislands", id:16},
+    elf: {map:"fourislands", id:11},
+    witchking: {map: "fourislands", id:6},
+    berserker: {map: "fourislands", id:8}
 }
 
 const SET_SPRITE = true;

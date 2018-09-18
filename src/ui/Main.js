@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import withContext from '../ecs/withContext';
 import States from '../game/GameStates';
 import ScenarioIntro from './ScenarioIntro';
+import CharacterSelect from './CharacterSelect';
 
 class Main extends Component {
     constructor(props) {
@@ -29,10 +30,17 @@ class Main extends Component {
     updateScreen(evt) {
         const gameState = evt.detail.state;
         switch(gameState) {
+
+            case States.CHARACTER_SELECT:
+                this.props.game.startModal();
+                this.setState({components:[<CharacterSelect/>]});
+                break;
+
             case States.SCENARIO_START_SCREEN:
                 this.props.game.startModal();
                 this.setState({components:[<ScenarioIntro/>]});
                 break;
+
             case States.START_GAME:
                 this.props.game.endModal();
                 this.setState({components:[]});

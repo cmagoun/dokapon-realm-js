@@ -1,9 +1,9 @@
 import * as Components from './Components';
 import Walk from '../animations/Walk';
 
-export const player = (name, profession, cm) => {
+export const player = (name, profession, color, cm) => {
     return cm.createEntity(name)
-        .add(Components.sprite(`${profession}1`, 0, 0))
+        .add(Components.sprite(`${profession}1`, 0, 0, {color}))
         .add(Components.tag("player"))
         .add(Components.profession(profession))
         .add(Components.animations({

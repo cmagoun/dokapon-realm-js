@@ -35,7 +35,9 @@ class ScenarioIntro extends Component {
     }
 
     render() {
-        return <div style={style.container} onClick={this.onDivClick}>
+        const {game} = this.props;
+
+        return <div style={style.container} onClick={this.onDivClick} onMouseEnter={game.startModal.bind(game)} onMouseLeave={game.endModal.bind(game)}>
 
             <div style={style.text} dangerouslySetInnerHTML={{__html: this.props.game.scenario.introText}}></div>
 
@@ -47,6 +49,10 @@ class ScenarioIntro extends Component {
 
     handleButton(evt) {
         this.props.game.updateGameState(States.START_GAME);
+    }
+
+    componentWillUnmount() {
+        this.props.game.endModal();
     }
 }
 

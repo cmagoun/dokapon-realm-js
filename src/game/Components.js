@@ -2,9 +2,11 @@
 export const sprite = (name, x, y, options) => {
     if(!options) options = {
         tint: 0xFFFFFF,
+        color: 0xFFFFFF,
         scale: {x:1, y:1},
         anchor: {x:0, y:0},
-        ref: undefined
+        ref: undefined,
+        circle: undefined
     }
 
     return {
@@ -12,10 +14,12 @@ export const sprite = (name, x, y, options) => {
         name,
         x,
         y,
-        tint: options.tint,
-        scale: options.scale,
-        anchor: options.anchor,
+        tint: options.tint || 0xFFFFFF,
+        color: options.color || 0xFFFFFF,
+        scale: options.scale || {x:1, y:1},
+        anchor: options.anchor || {x:0, y:0},
         ref: options.ref,
+        circle: options.circle,
         initialized:false
     };
 };

@@ -3,6 +3,7 @@ import PixiSceneManager from '../pixi/PixiSceneManager';
 import SpriteMap from '../pixi/SpriteMap';
 import States from './GameStates';
 import * as Components from './Components';
+import * as Entities from './Entities';
 import {tileSize} from '../utils/constants';
 
 export default class Game extends BaseGameManager {
@@ -19,6 +20,9 @@ export default class Game extends BaseGameManager {
         if(this.cm.isDirty()) document.dispatchEvent(new CustomEvent("ecs_updated"));
 
         switch(this.gameState) {
+            case States.CHARACTER_SELECT:
+                //no op
+                break;
             case States.SCENARIO_START_SCREEN:
                 //no op
                 break;
@@ -52,6 +56,11 @@ export default class Game extends BaseGameManager {
                 "game_state_changed", 
                 { "detail": { state: newState, payload } }
             ));
+    }
+
+    setPlayers(players) {
+        players.filter(p => p.active).forEach(p => Entities.player(p.name, p.profession, p.tint, this.cm));
+        this.updateGameState(States.SCENARIO_START_SCREEN);
     }
 
     //helpers

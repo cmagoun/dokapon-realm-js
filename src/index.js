@@ -32,17 +32,13 @@ function setup() {
     //must happen AFTER Loader.load
     scenario.loadTiled();
 
-    //this is garbage. we are doing this to test
-    Entities.player("BOB", "paladin", game.cm);
-    Entities.player("JON", "ranger", game.cm);
-
     setupSprites(game);
 
     const mapLayer = new MapLayer("map", game);
     const playerLayer = new PlayerLayer("player", game);
     game.sceneMgr.setScreens([mapLayer, playerLayer]);
 
-    game.updateGameState(States.SCENARIO_START_SCREEN);
+    game.updateGameState(States.CHARACTER_SELECT);
 
     function gameLoop() {
         requestAnimationFrame(gameLoop);
@@ -71,10 +67,15 @@ ReactDOM.render(
 
 
 function setupSprites(game) {
-    game.spriteMap.loadTexture("paladin1", "dist/creatures.png", 48, 48, 48, 48);
-    game.spriteMap.loadTexture("paladin2","dist/creatures.png", 48, 96, 48, 48);
-    game.spriteMap.loadTexture("ranger1", "dist/creatures.png", 96, 48, 48, 48);
-    game.spriteMap.loadTexture("ranger2", "dist/creatures.png", 96, 96, 48, 48);
+    game.spriteMap.loadTexture("whiteknight1", "dist/creatures.png", 48, 48, 48, 48);
+    game.spriteMap.loadTexture("whiteknight2","dist/creatures.png", 48, 96, 48, 48);
+    game.spriteMap.loadTexture("elf1", "dist/creatures.png", 96, 48, 48, 48);
+    game.spriteMap.loadTexture("elf2", "dist/creatures.png", 96, 96, 48, 48);
+    game.spriteMap.loadTexture("berserker1", "dist/creatures.png", 336, 48, 48, 48);
+    game.spriteMap.loadTexture("berserker2", "dist/creatures.png", 336, 96, 48, 48);
+    game.spriteMap.loadTexture("witchking1", "dist/creatures.png", 624, 48, 48, 48);
+    game.spriteMap.loadTexture("witchking2", "dist/creatures.png", 624, 96, 48, 48);
+    game.spriteMap.loadTexture("circle", "dist/creatures.png", 336, 1104, 48, 48);
 }
 
 

@@ -1,4 +1,5 @@
 import Scene from './Scene';
+import Walk from '../animations/Walk';
 
 const DIRTY = true;
 
@@ -26,14 +27,25 @@ export default class PlayerLayer extends Scene {
             if(e.sprite.x < 1 || e.sprite.y < 1) {this.removeChild(sprite); return;}
 
             const sprite = this.spriteMap.getSprite(e, this.game.cm);
+
+            const circle = this.spriteMap.getCircle(e, this.game.cm);
+            circle.x = sprite.x;
+            circle.y = sprite.y + 8;
+            circle.tint = e.sprite.color;
             
             if(e.isToBeDestroyed())  {this.removeChild(sprite); return;}     
+            this.addChild(circle);
             this.addChild(sprite);
         });
     }
 
     handleClick() {
         if(this.game.modal) return;
-        this.game.moveCamera(480, 480);
+        
+        const p1 = this.game.entity("Player 1");
+        const from = {x:p1.sprite.x, y:p1.sprite.y};
+        const to = {x:from.x + 48, y:from.y};
+
+        this.game.animate(p1.id, p1.animations.walk(from, to, this.game));
     }
 }
