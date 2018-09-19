@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import withContext from '../ecs/withContext';
 import {centerInWindow} from '../utils/utils';
-import States from '../game/GameStates';
 import PlayerSetup from './PlayerSetup';
 
-const obj = {height:450, width:660};
+const obj = {height:450, width:700};
 centerInWindow(obj);
 
 const style = {
@@ -51,7 +50,7 @@ class CharacterSelect extends Component {
 
         const players = [];
         for(let i = 0; i < 6; i++) {
-            players.push({index: i, active: i===0,  name:`Player ${i+1}`, profession:"", control:"player", image:""});
+            players.push({index: i, active: false,  name:`Player ${i+1}`, profession:"", control:"player", image:""});
         }
 
         this.state={players};

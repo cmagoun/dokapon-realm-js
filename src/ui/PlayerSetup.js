@@ -101,24 +101,28 @@ class PlayerSetup extends Component {
     handleNameChange(evt) {
         const player = this.props.player;
         player.name = evt.target.value;
+        player.active = true;
         this.props.changePlayer(player);
     }
 
     handleChangeProfession(evt) {
         const player = this.props.player;
         player.profession = evt.target.value;
+        player.active = true;
         this.props.changePlayer(player);
     }
 
     handleChangeControl(evt) {
         const player = this.props.player;
         player.control = evt.target.value;
+        player.active = true;
         this.props.changePlayer(player);
     }
 
     handleChangeColor(color) {
         const player = this.props.player;
         player.tint = color.tint;
+        player.active = true;
         this.props.changePlayer(player);
     }
 }

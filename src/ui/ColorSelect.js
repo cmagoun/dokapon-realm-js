@@ -6,17 +6,21 @@ class ColorSelect extends Component {
 
         this.style = {
             main: {
-                height:"48px",
-                width: "48px",
-                border:"1px black solid"
+                minHeight:"48px",
+                minWidth: "48px",
+                border:"1px black solid",
+                display:"inline-block",
+                marginRight: "2px"
             }
         };
 
         this.colors = [
             {web:"#FFFFFF", tint:0xffffff},
             {web:"#FF0000", tint:0xff0000},
-            {web:"#00FF00", tint:0x00ff00},
-            {web:"#0000FF", tint:0x0000ff}
+            {web:"#008000", tint:0x008000},
+            {web:"#0000FF", tint:0x0000ff},
+            {web:"#FFFF00", tint:0xffff00},
+            {web:"#800080", tint:0x800080}
         ];
         
         this.state={index:0};
