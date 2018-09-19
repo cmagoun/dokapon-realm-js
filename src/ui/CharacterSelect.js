@@ -1,21 +1,15 @@
 import React, { Component } from 'react';
 import withContext from '../ecs/withContext';
-import {centerInWindow} from '../utils/utils';
 import PlayerSetup from './PlayerSetup';
-
-const obj = {height:450, width:700};
-centerInWindow(obj);
+import Centered from './Centered';
 
 const style = {
     container: {
-        position:"absolute",
         backgroundColor: "tan",
-        height: `${obj.height}px`,
-        width: `${obj.width}px`,
-        top: `${obj.y}px`,
-        left: `${obj.x}px`,
         border: "3px solid grey",
-        padding: "5px"
+        padding: "5px",
+        width:"100%",
+        height:"100%"
     },
     title: {
         fontWeight:"bold",
@@ -57,19 +51,21 @@ class CharacterSelect extends Component {
     }
 
     render() {
-        return <div style={style.container}>
-            <div style={style.title}>SELECT CHARACTERS</div>
+        return <Centered height={450} width={700}>
+            <div style={style.container}>
+                <div style={style.title}>SELECT CHARACTERS</div>
 
-            <div>
-                {this.state.players.map((p, i) => <PlayerSetup key={i} player={p} index={i} changePlayer={this.handleChangePlayer.bind(this)}/>)}
+                <div>
+                    {this.state.players.map((p, i) => <PlayerSetup key={i} player={p} index={i} changePlayer={this.handleChangePlayer.bind(this)}/>)}
+                </div>
+
+                <div style={style.ws}/>
+
+                <div style={style.buttonDiv}>
+                    <button style={style.button} onClick={this.handleDone.bind(this)}>OK</button>
+                </div>
             </div>
-
-            <div style={style.ws}/>
-
-            <div style={style.buttonDiv}>
-                <button style={style.button} onClick={this.handleDone.bind(this)}>OK</button>
-            </div>
-        </div>
+        </Centered>
     }
 
     handleChangePlayer(player) {

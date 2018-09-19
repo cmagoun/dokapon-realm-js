@@ -1,4 +1,33 @@
 
+export const animations = (animations) => {
+    return {
+        cname: "animations",
+        ...animations
+    }
+};
+
+export const character = (name) => {
+    return {
+        cname:"character",
+        name
+    };
+};
+
+export const pos = (map, id) => {
+    return {
+        cname: "pos",
+        map,
+        id
+    }
+};
+
+export const profession = (value) => {
+    return {
+        cname: "profession",
+        value
+    }
+};
+
 export const sprite = (name, x, y, options) => {
     if(!options) options = {
         tint: 0xFFFFFF,
@@ -24,12 +53,6 @@ export const sprite = (name, x, y, options) => {
     };
 };
 
-export const animations = (animations) => {
-    return {
-        cname: "animations",
-        ...animations
-    }
-};
 
 export const tag = (value) => {
     return {
@@ -38,18 +61,16 @@ export const tag = (value) => {
     };
 };
 
-export const pos = (map, id) => {
+export const turnTaker = (index) => {
     return {
-        cname: "pos",
-        map,
-        id
-    }
+        cname:"turntaker",
+        index
+    };
 };
 
-export const profession = (value) => {
-    return {
-        cname: "profession",
-        value
-    }
-};
+
+
+
+
+
 

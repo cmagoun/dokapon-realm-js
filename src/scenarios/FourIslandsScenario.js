@@ -32,6 +32,8 @@ export default class FourIslandsScenario {
         
         <p>Sincerely,</p>
         <p>The GM</p>`;
+
+        this.introTitle = "The Story So Far";
     }
 
     loadMaps() {

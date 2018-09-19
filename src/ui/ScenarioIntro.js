@@ -1,32 +1,8 @@
 import React, { Component } from 'react';
 import withContext from '../ecs/withContext';
-import {centerInWindow} from '../utils/utils';
 import States from '../game/GameStates';
-
-const obj = {height:300, width:400};
-centerInWindow(obj);
-
-const style = {
-    container: {
-        position:"absolute",
-        backgroundColor: "tan",
-        height: `${obj.height}px`,
-        width: `${obj.width}px`,
-        top: `${obj.y}px`,
-        left: `${obj.x}px`,
-        border: "3px solid grey"
-    },
-    text: {
-        height: "80%",
-        width: "100%"
-    },
-    button: {
-        display:"flex",
-        flexDirection:"row",
-        justifyContent:"center",
-        height:"10%"
-    }
-}
+import Centered from './Centered';
+import SimpleDialog from './SimpleDialog';
 
 class ScenarioIntro extends Component {
     constructor(props) {
@@ -36,15 +12,14 @@ class ScenarioIntro extends Component {
 
     render() {
         const {game} = this.props;
+        const scenario = game.scenario;
 
-        return <div style={style.container} onClick={this.onDivClick} onMouseEnter={game.startModal.bind(game)} onMouseLeave={game.endModal.bind(game)}>
-
-            <div style={style.text} dangerouslySetInnerHTML={{__html: this.props.game.scenario.introText}}></div>
-
-            <div style={style.button}>
-                <button onClick={this.onButtonClick}>OK</button>
-            </div>
-        </div>   
+        return <Centered height={300} width={400}>
+            <SimpleDialog
+                title={scenario.introTitle}
+                html={scenario.introText}
+                onOk={this.onButtonClick}/>
+        </Centered>
     }
 
     handleButton(evt) {

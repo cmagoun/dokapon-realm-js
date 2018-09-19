@@ -3,6 +3,7 @@ import withContext from '../ecs/withContext';
 import States from '../game/GameStates';
 import ScenarioIntro from './ScenarioIntro';
 import CharacterSelect from './CharacterSelect';
+import StartTurnBanner from './StartTurnBanner';
 
 class Main extends Component {
     constructor(props) {
@@ -45,6 +46,15 @@ class Main extends Component {
                 this.props.game.endModal();
                 this.setState({components:[]});
                 break;
+
+            case States.START_TURN:
+                this.props.game.startModal();
+                this.setState({components:[<StartTurnBanner/>]});
+                break;
+
+            case States.TAKING_TURN:
+                this.props.game.endModal();
+                this.setState({components:[]});
         }
     }
 }
