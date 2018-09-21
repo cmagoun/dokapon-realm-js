@@ -65,12 +65,10 @@ export default class Game extends BaseGameManager {
     }
 
     takeTurn() {
-        const pixiPos = Character.getPixiPos(this.currentPlayer(), this.scenario);
-        const camera = centerCameraOn(pixiPos);
-        this.sceneMgr.moveCamera(camera.x, camera.y);
+
 
         //what goes here... for now we are just ending our turn
-        this.updateGameState(States.TURN_DONE);
+        //this.updateGameState(States.TURN_DONE);
     }
 
     turnDone() {

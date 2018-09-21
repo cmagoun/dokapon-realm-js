@@ -3,16 +3,19 @@ import withContext from '../ecs/withContext';
 
 const style = {
     overlay: {
-        height: "10%",
+        position:"absolute",
+        height: "20%",
         width:"100%",
-        backgroundColor:"white"
+        backgroundColor:"tan",
+        border:"2px solid maroon",
+        bottom:"0"
     }
 }
 
 class Overlay extends Component {
     render() {
         return <div style={style.overlay}>
-            
+            TEST
         </div>
     }
 }

@@ -4,6 +4,7 @@ import States from '../game/GameStates';
 import ScenarioIntro from './ScenarioIntro';
 import CharacterSelect from './CharacterSelect';
 import StartTurnBanner from './StartTurnBanner';
+import Overlay from './Overlay';
 
 class Main extends Component {
     constructor(props) {
@@ -54,7 +55,7 @@ class Main extends Component {
 
             case States.TAKING_TURN:
                 this.props.game.endModal();
-                this.setState({components:[]});
+                this.setState({components:[<Overlay/>]});
         }
     }
 }

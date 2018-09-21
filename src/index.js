@@ -5,6 +5,7 @@ import {Application, Loader} from './pixi/Aliases';
 import Game from './game/Game';
 import MapLayer from './scenes/MapLayer';
 import PlayerLayer from './scenes/PlayerLayer';
+import ControlLayer from './scenes/ControlLayer';
 import FourIslandsScenario from './scenarios/FourIslandsScenario';
 import States from './game/GameStates';
 import TurnLoop from './ecs/TurnLoop';
@@ -36,7 +37,9 @@ function setup() {
 
     const mapLayer = new MapLayer("map", game);
     const playerLayer = new PlayerLayer("player", game);
-    game.sceneMgr.setScreens([mapLayer, playerLayer]);
+    const controlLayer = new ControlLayer("control", game);
+
+    game.sceneMgr.setScreens([mapLayer, playerLayer, controlLayer]);
 
     game.updateGameState(States.CHARACTER_SELECT);
 
