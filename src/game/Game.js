@@ -81,20 +81,9 @@ export default class Game extends BaseGameManager {
     }
 
     roundDone() {
-        //do end of round stuff
+        //do end of round stuff... for now, just move to the next round
         this.updateGameState(States.START_ROUND);
     }
-
-
-    updateGameState(newState, payload) {
-        this.gameState = newState;
-        document.dispatchEvent(
-            new CustomEvent(
-                "game_state_changed", 
-                { "detail": { state: newState, payload } }
-            ));
-    }
-
 
     //system
     draw() {
@@ -128,8 +117,10 @@ export default class Game extends BaseGameManager {
 
     setPlayers(players) {
         const activePlayers = players.filter(p => p.active);
-        this.numPlayers = activePlayers.length;   
+        this.numPlayers = activePlayers.length;
+
         activePlayers.forEach(p => Entities.player(p.name, p.profession, p.color, p.index, this.cm));
+        
         this.updateGameState(States.SCENARIO_START_SCREEN);
     }
 
@@ -151,5 +142,14 @@ export default class Game extends BaseGameManager {
         } else {
             entity.edit("sprite", {name:`${entity.profession.value}1`, x:pos.x * tileSize, y:pos.y * tileSize});
         }
+    }
+
+    updateGameState(newState, payload) {
+        this.gameState = newState;
+        document.dispatchEvent(
+            new CustomEvent(
+                "game_state_changed", 
+                { "detail": { state: newState, payload } }
+            ));
     }
 }

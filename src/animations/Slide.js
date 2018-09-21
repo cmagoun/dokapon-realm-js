@@ -1,7 +1,5 @@
 import * as Vector from '../utils/vector';
-//import * as Animate from './Animate';
 
-//because this moves a sprite, this checks followers
 class Slide {
     constructor(from, to, speed) {
         this.speed = speed;
@@ -9,16 +7,11 @@ class Slide {
         this.to = to;
         this.initialized = false;
 
-        //this.followerPos = new Map();
-
         const vec = Vector.subtract(to)(from);
         this.direction = Vector.normalized(vec);
     }
 
     init(entity, cm, time) {
-        // const pixiSprite = entity.sprite.ref;
-        // pixiSprite.x = entity.sprite.x;
-        // pixiSprite.y = entity.sprite.y;
         entity.edit("sprite", {x:this.from.x, y:this.from.y});
     }
 
@@ -27,9 +20,6 @@ class Slide {
     }
 
     transform(entity, cm) {
-        // const pixiSprite = entity.sprite.ref;
-        // pixiSprite.x += this.direction.x * this.speed;
-        // pixiSprite.y += this.direction.y * this.speed;
         const x = entity.sprite.x += this.direction.x * this.speed;
         const y = entity.sprite.y += this.direction.y * this.speed;
         entity.edit("sprite", {x, y});
@@ -44,10 +34,6 @@ class Slide {
     }
 
     complete(entity, cm) {
-        // const pixiSprite = entity.sprite.ref;
-        // pixiSprite.x = this.to.x;
-        // pixiSprite.y = this.to.y;
-
         cm.editComponentOf(entity.id, "sprite", {x:this.to.x, y:this.to.y});
     }
 }

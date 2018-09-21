@@ -37,42 +37,29 @@ export default class SpriteMap {
         return new Sprite(newTex);
     }
 
-    getSprite(entity, compMgr) {
-        let resultSprite;
-
+    getSprite(entity) {
         if(!entity.sprite) return undefined;
 
-        if(!entity.sprite.ref) {
-            resultSprite = this.get(entity.sprite.name);        
-            this.setSpriteProperties(resultSprite, entity.sprite);
-            
-            compMgr.editComponentOf(entity.id, "sprite", {initialized:true, ref:resultSprite});
-        } else {
-            resultSprite = entity.sprite.ref;
-            this.setSpriteProperties(resultSprite, entity.sprite);
+        const resultSprite = entity.sprite.ref || 
+            this.get(entity.sprite.name);
 
-            if(!entity.sprite.initialized) {
-                compMgr.editComponentOf(entity.id, "sprite", {initialized:true, ref:resultSprite});
-            }
-        } 
+        this.setSpriteProperties(resultSprite, entity.sprite);
+        if(!entity.sprite.ref) entity.edit("sprite", {ref:resultSprite});
 
         return resultSprite;
     }
 
-    getCircle(entity, compMgr) {
-        let resultSprite;
+    getCircle(entity) {
         if(!entity.sprite) return undefined;
 
-        if(!entity.sprite.circle) {
-            resultSprite = this.get(`${entity.id}_circle`);
-            if(resultSprite === undefined) resultSprite = this.copyTexture("circle", `${entity.id}_circle`);
+        const circleSprite = entity.sprite.circle || 
+            this.get(`${entity.id}_circle`) || 
+            this.copyTexture("circle", `${entity.id}_circle`);
 
-            compMgr.editComponentOf(entity.id, "sprite", {circle:resultSprite});
-        } else {
-            resultSprite = entity.sprite.circle;
-        }
+        this.setCircleProperties(circleSprite, entity.sprite);
+        if(!entity.sprite.circle) entity.edit("sprite", {circle:circleSprite});
 
-        return resultSprite;
+        return circleSprite;
     }
 
     setSpriteProperties(rSprite, eSprite) {
@@ -85,5 +72,15 @@ export default class SpriteMap {
         rSprite.anchor.x = eSprite.anchor.x;
         rSprite.anchor.y = eSprite.anchor.y;
         //rSprite.rotation = eSprite.rotation;
+    }
+
+    setCircleProperties(circle, eSprite) {
+        circle.x = eSprite.x;
+        circle.y = eSprite.y + 8;
+        circle.tint = eSprite.color;
+        circle.scale.x = eSprite.scale.x;
+        circle.scale.y = eSprite.scale.y;
+        circle.anchor.x = eSprite.anchor.x;
+        circle.anchor.y = eSprite.anchor.y;
     }
 }
