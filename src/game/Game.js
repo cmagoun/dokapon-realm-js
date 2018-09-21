@@ -2,10 +2,10 @@ import {BaseGameManager} from '../ecs/GameManager';
 import PixiSceneManager from '../pixi/PixiSceneManager';
 import SpriteMap from '../pixi/SpriteMap';
 import States from './GameStates';
-import * as Components from './Components';
 import * as Entities from './Entities';
-import {tileSize} from '../utils/constants';
-import * as Vector from '../utils/vector';
+import * as Character from './Character';
+import { tileSize } from '../utils/constants';
+import { centerInWindow, centerCameraOn } from '../utils/utils';
 
 export default class Game extends BaseGameManager {
     constructor(app, scenario) {
@@ -60,15 +60,16 @@ export default class Game extends BaseGameManager {
         this.turn++;
         this.currentPlayerIndex = 0;
 
-        //do begin turn stuff, reset player stuff, etc.
-
+        //do begin round stuff, reset player stuff, etc.
         this.updateGameState(States.START_TURN);
     }
 
     takeTurn() {
-        //what goes here... for now we are just ending our turn
-        
+        const pixiPos = Character.getPixiPos(this.currentPlayer(), this.scenario);
+        const camera = centerCameraOn(pixiPos);
+        this.sceneMgr.moveCamera(camera.x, camera.y);
 
+        //what goes here... for now we are just ending our turn
         this.updateGameState(States.TURN_DONE);
     }
 

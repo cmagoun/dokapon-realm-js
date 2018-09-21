@@ -9,7 +9,6 @@ export default class PlayerLayer extends Scene {
     } 
 
     init() {
-        document.addEventListener("click", this.onClick);
         this.drawPlayers();
     }
 
