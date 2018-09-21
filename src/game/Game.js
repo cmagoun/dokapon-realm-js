@@ -123,7 +123,7 @@ export default class Game extends BaseGameManager {
         const activePlayers = players.filter(p => p.active);
         this.numPlayers = activePlayers.length;
 
-        activePlayers.forEach(p => Entities.player(p.name, p.profession, p.color, p.index, this.cm));
+        activePlayers.forEach((p, i) => Entities.player(p.name, p.profession, p.color, i, this.cm));
         
         this.updateGameState(States.SCENARIO_START_SCREEN);
     }
