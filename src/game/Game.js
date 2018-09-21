@@ -5,6 +5,7 @@ import States from './GameStates';
 import * as Components from './Components';
 import * as Entities from './Entities';
 import {tileSize} from '../utils/constants';
+import * as Vector from '../utils/vector';
 
 export default class Game extends BaseGameManager {
     constructor(app, scenario) {
@@ -66,6 +67,8 @@ export default class Game extends BaseGameManager {
 
     takeTurn() {
         //what goes here... for now we are just ending our turn
+        
+
         this.updateGameState(States.TURN_DONE);
     }
 
@@ -124,25 +127,7 @@ export default class Game extends BaseGameManager {
         this.updateGameState(States.SCENARIO_START_SCREEN);
     }
 
-    //needs to be generalized
-    setPlayerPos(entity, mapName, spaceId, setSpritePos) {
-        if(!entity.pos) {
-            entity.add(Components.pos(mapName, spaceId));
-        } else {
-            entity.edit("pos", {mapName, spaceId});
-        }
 
-        if(!setSpritePos) return;
-        
-        const map = this.scenario.maps.get(mapName);
-        const pos = map.getPosition(spaceId);
-
-        if(!entity.sprite) {
-            entity.add(Components.sprite(`${entity.profession.value}1`, pos.x * tileSize, pos.y * tileSize));
-        } else {
-            entity.edit("sprite", {name:`${entity.profession.value}1`, x:pos.x * tileSize, y:pos.y * tileSize});
-        }
-    }
 
     updateGameState(newState, payload) {
         this.gameState = newState;

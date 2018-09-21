@@ -1,6 +1,7 @@
 import spaces from './fourislands/FourIslandsMap';
 import GameMap from '../game/GameMap';
 import TiledMap from '../tiled/TiledMap';
+import * as Character from '../game/Character';
 
 const startPos = {
     whiteknight: {map:"fourislands", id:16},
@@ -54,7 +55,7 @@ export default class FourIslandsScenario {
         const players = game.players();
         players.forEach(p => {
             const pos = startPos[p.profession.value];
-            game.setPlayerPos(p, pos.map, pos.id, SET_SPRITE);
+            Character.setPos(p, pos.map, pos.id, this, SET_SPRITE);
         });
     }
 }

@@ -1,3 +1,6 @@
+import * as Vector from '../utils/vector';
+import {tileSize} from '../utils/constants';
+
 class GameMap {
     constructor(name, spacesJson) {
         this.name = name;
@@ -7,6 +10,10 @@ class GameMap {
 
     getPosition(id) {
         return this.spaces.filter(s => s.id === id).map(s => {return {x:s.x, y:s.y}})[0];
+    }
+
+    getPixiPosition(id) {
+        return Vector.multiply(this.getPosition(id), tileSize);
     }
 
     getId(x, y) {

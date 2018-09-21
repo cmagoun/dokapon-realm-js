@@ -22,12 +22,12 @@ export default class PlayerLayer extends Scene {
         const entities = cm.entitiesWith("sprite", DIRTY);
 
         entities.forEach(e => {
-            const sprite = this.getSprite(e);
             const circle = this.getCircle(e);
-
+            const sprite = this.getSprite(e);
+            
             if(e.isToBeDestroyed())  {
-                this.removeChild(sprite);
                 this.removeChild(circle);
+                this.removeChild(sprite);                
                 return;
             }     
 
@@ -36,7 +36,6 @@ export default class PlayerLayer extends Scene {
         });
     }
 
-    
     getSprite(entity) {
         if(!entity.sprite) return undefined;
 
