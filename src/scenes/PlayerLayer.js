@@ -22,8 +22,8 @@ export default class PlayerLayer extends Scene {
         const entities = cm.entitiesWith("sprite", DIRTY);
 
         entities.forEach(e => {
-            const sprite = this.spriteMap.getSprite(e, cm);
-            const circle = this.spriteMap.getCircle(e, cm);
+            const sprite = this.getSprite(e);
+            const circle = this.getCircle(e);
 
             if(e.isToBeDestroyed())  {
                 this.removeChild(sprite);
@@ -34,5 +34,53 @@ export default class PlayerLayer extends Scene {
             this.addChild(circle);
             this.addChild(sprite);
         });
+    }
+
+    
+    getSprite(entity) {
+        if(!entity.sprite) return undefined;
+
+        const resultSprite = entity.sprite.ref || 
+            this.spriteMap.get(entity.sprite.name);
+
+        this.setSpriteProperties(resultSprite, entity.sprite);
+        if(!entity.sprite.ref) entity.edit("sprite", {ref:resultSprite});
+
+        return resultSprite;
+    }
+
+    getCircle(entity) {
+        if(!entity.sprite) return undefined;
+
+        const circleSprite = entity.sprite.circle || 
+            this.spriteMap.get(`${entity.id}_circle`) || 
+            this.spriteMap.copyTexture("circle", `${entity.id}_circle`);
+
+        this.setCircleProperties(circleSprite, entity.sprite);
+        if(!entity.sprite.circle) entity.edit("sprite", {circle:circleSprite});
+
+        return circleSprite;
+    }
+
+    setSpriteProperties(rSprite, eSprite) {
+        rSprite.x = eSprite.x;
+        rSprite.y = eSprite.y;
+        rSprite.texture = this.spriteMap.getTexture(eSprite.name);
+        rSprite.tint = eSprite.tint;
+        rSprite.scale.x = eSprite.scale.x;
+        rSprite.scale.y = eSprite.scale.y;
+        rSprite.anchor.x = eSprite.anchor.x;
+        rSprite.anchor.y = eSprite.anchor.y;
+        //rSprite.rotation = eSprite.rotation;
+    }
+
+    setCircleProperties(circle, eSprite) {
+        circle.x = eSprite.x;
+        circle.y = eSprite.y + 8;
+        circle.tint = eSprite.color;
+        circle.scale.x = eSprite.scale.x;
+        circle.scale.y = eSprite.scale.y;
+        circle.anchor.x = eSprite.anchor.x;
+        circle.anchor.y = eSprite.anchor.y;
     }
 }
