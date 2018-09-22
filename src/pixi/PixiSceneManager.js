@@ -21,7 +21,7 @@ export default class PixiSceneManager {
                 if(s.init) s.init();
                 if(!s.initEachTime) s.initialized = true;
             }
-            this.app.stage.addChild(this.transformedContainer(s, this.cameraOrigin));
+            this.app.stage.addChild(this.shiftedContainer(s, this.cameraOrigin));
         });
     }
 
@@ -30,7 +30,7 @@ export default class PixiSceneManager {
 
         this.app.stage.removeChildren();
         this.screens.forEach(s => {
-            this.app.stage.addChild(this.transformedContainer(s, this.cameraOrigin));
+            this.app.stage.addChild(this.shiftedContainer(s, this.cameraOrigin));
         });
     }
 
@@ -40,7 +40,7 @@ export default class PixiSceneManager {
         })
     }
 
-    transformedContainer(scene, origin) {
+    shiftedContainer(scene, origin) {
         return scene.affectedByCamera
             ? Object.assign(scene.container, {x:-origin.x, y:-origin.y})
             : scene.container;

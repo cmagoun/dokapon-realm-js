@@ -13,6 +13,21 @@ export const character = (name) => {
     };
 };
 
+export const hasDice = (dice) => {
+    return {
+        cname:"hasdice",
+        dice
+    };
+};
+
+export const hits = (startingValue) => {
+    return {
+        cname:"hits",
+        max: startingValue,
+        current: startingValue
+    };
+};
+
 export const pos = (map, id) => {
     return {
         cname: "pos",

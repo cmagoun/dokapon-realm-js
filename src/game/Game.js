@@ -3,9 +3,9 @@ import PixiSceneManager from '../pixi/PixiSceneManager';
 import SpriteMap from '../pixi/SpriteMap';
 import States from './GameStates';
 import * as Entities from './Entities';
-import * as Character from './Character';
-import { tileSize } from '../utils/constants';
-import { centerInWindow, centerCameraOn } from '../utils/utils';
+import * as Professions from './Professions';
+import * as Dice from './Dice';
+import * as Components from './Components';
 
 export default class Game extends BaseGameManager {
     constructor(app, scenario) {
@@ -121,7 +121,17 @@ export default class Game extends BaseGameManager {
         const activePlayers = players.filter(p => p.active);
         this.numPlayers = activePlayers.length;
 
-        activePlayers.forEach((p, i) => Entities.player(p.name, p.profession, p.color, i, this.cm));
+        activePlayers.forEach((p, i) => {
+            const player = Entities.player(p.name, p.profession, p.color, i, this.cm).read();
+
+            const startingValues = Professions.startingValues[player.profession.value];
+
+            player.add(Components.hits(startingValues.hits));
+            
+            const playerDice = [];
+            startingValues.dice.forEach(d => playerDice.push(Dice.dc[d]()));
+            player.add(Components.hasDice(playerDice));
+        });
         
         this.updateGameState(States.SCENARIO_START_SCREEN);
     }

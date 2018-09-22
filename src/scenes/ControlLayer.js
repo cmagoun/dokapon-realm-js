@@ -6,7 +6,7 @@ export default class ControlLayer extends Scene {
         super(key, game);
         this.affectedByCamera = false;
 
-        this.click = this.handleClick.bind(this);
+        this.click = this.handleRightClick.bind(this);
     } 
 
     init() {
@@ -17,7 +17,7 @@ export default class ControlLayer extends Scene {
         document.removeEventListener("contextmenu", this.click);
     }
 
-    handleClick(evt) {
+    handleRightClick(evt) {
         evt.preventDefault();
         const sceneMgr = this.game.sceneMgr;
 

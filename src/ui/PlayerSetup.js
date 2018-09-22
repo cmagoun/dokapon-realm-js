@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
-import elf from '../dist/elf.png';
-import berserker from '../dist/berserker.png';
-import whiteknight from '../dist/whiteknight.png';
-import witchking from '../dist/witchking.png';
-import blank from '../dist/blank.png';
 import ColorSelect from './ColorSelect';
+import CharacterImage from './CharacterImage';
 
 const style = {
     main: {
@@ -28,6 +24,9 @@ const style = {
     check: {
         marginTop:"0px",
         marginRight:"2px"
+    },
+    img: {
+        minWidth:"48px"
     }
 }
 
@@ -47,25 +46,6 @@ class PlayerSetup extends Component {
             ? <i style={style.check} className="far fa-check-square fa-3x" onClick={this.changeActive}></i>
             : <i style={style.check} className="far fa-square fa-3x" onClick={this.changeActive}></i>
 
-        let icon;
-        switch(player.profession) {
-            case "berserker":
-                icon = berserker;
-                break;
-            case "elf":
-                icon = elf;
-                break;
-            case "whiteknight":
-                icon = whiteknight;
-                break;
-            case "witchking":
-                icon = witchking;
-                break;
-            default:
-                icon = blank;
-                break;
-        }
-
         return <div style={style.main}>
             {img}
 
@@ -80,7 +60,7 @@ class PlayerSetup extends Component {
             </select>
 
             <div style={style.img}>
-                <img src={icon}></img>
+                <CharacterImage profession={player.profession}/>
             </div>
 
             <ColorSelect onChange={this.changeColor}/>
