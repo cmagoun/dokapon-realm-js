@@ -25,7 +25,7 @@ class HitsDisplay extends Component {
         }
 
         return <div style={style.container}>
-            <div style={style.left}>HITS:</div>
+            <div style={style.left}>Hits:</div>
             <div>{hearts.map((h,i) => <img key={i} src={h}></img>)}</div>
         </div>
     }

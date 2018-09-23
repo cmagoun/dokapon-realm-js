@@ -6,10 +6,14 @@ export const animations = (animations) => {
     }
 };
 
-export const character = (name) => {
+export const character = (name, profession, level, prowess, resilience) => {
     return {
         cname:"character",
-        name
+        level: level || 1,
+        prowess: prowess || 2 + Math.floor((level-1)/2)+2,
+        resilience: resilience || 2 + Math.floor((level-1)/2),
+        name, 
+        profession
     };
 };
 
@@ -33,13 +37,6 @@ export const pos = (map, id) => {
         cname: "pos",
         map,
         id
-    }
-};
-
-export const profession = (value) => {
-    return {
-        cname: "profession",
-        value
     }
 };
 

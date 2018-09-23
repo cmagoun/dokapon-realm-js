@@ -4,11 +4,9 @@ import Walk from '../animations/Walk';
 export const player = (name, profession, color, index, cm) => {
     return cm.createEntity(name)
         .add(Components.sprite(`${profession}1`, 0, 0, {color}))
-        .add(Components.character(name))
-
+        .add(Components.character(name, profession))
         .add(Components.turnTaker(index))
         .add(Components.tag("player"))
-        .add(Components.profession(profession))
         .add(Components.animations({
             walk: (from, to, gm) => walk(from, to, gm)([`${profession}1`, `${profession}2`])
         }));

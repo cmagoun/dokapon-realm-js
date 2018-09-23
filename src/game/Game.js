@@ -4,7 +4,6 @@ import SpriteMap from '../pixi/SpriteMap';
 import States from './GameStates';
 import * as Entities from './Entities';
 import * as Professions from './Professions';
-import * as Dice from './Dice';
 import * as Components from './Components';
 
 export default class Game extends BaseGameManager {
@@ -123,14 +122,10 @@ export default class Game extends BaseGameManager {
 
         activePlayers.forEach((p, i) => {
             const player = Entities.player(p.name, p.profession, p.color, i, this.cm).read();
-
-            const startingValues = Professions.startingValues[player.profession.value];
+            const startingValues = Professions.startingValues[player.character.profession];
 
             player.add(Components.hits(startingValues.hits));
-            
-            const playerDice = [];
-            startingValues.dice.forEach(d => playerDice.push(Dice.dc[d]()));
-            player.add(Components.hasDice(playerDice));
+            player.add(Components.hasDice(startingValues.dice));
         });
         
         this.updateGameState(States.SCENARIO_START_SCREEN);

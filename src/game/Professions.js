@@ -1,42 +1,34 @@
+import * as Dice from './Dice';
+
 export const startingValues = {
     amazon: {
         hits: 6,
-        prowess: 2,
-        resilience: 2,
         spells:0,
         spellbooks:[],
-        dice: ["battle", "battle", "battle", "tough", "quick"]
+        dice: [Dice.battle, Dice.battle, Dice.battle, Dice.tough, Dice.quick]
     },
     berserker: {
         hits: 7,
-        prowess: 2,
-        resilience: 2,
         spells: 0,
         spellbooks:[],
-        dice: ["battle", "battle", "battle", "battle", "tough"]
+        dice: [Dice.battle, Dice.battle, Dice.battle, Dice.battle, Dice.tough]
     },
     elf: {
         hits: 5,
-        prowess: 2,
-        resilience: 2,
         spells: 1,
         spellbooks: ["faerie"],
-        dice: ["battle", "battle", "battle", "quick", "gold"]
+        dice: [Dice.battle, Dice.battle, Dice.battle, Dice.quick, Dice.goldMagic]
     },
     whiteknight: {
         hits: 6,
-        prowess: 2,
-        resilience: 2,
         spells: 1,
         spellbooks: ["holy"],
-        dice: ["battle", "battle", "battle", "battle", "white"]
+        dice: [Dice.battle, Dice.battle, Dice.battle, Dice.battle, Dice.whiteMagic]
     },
     witchking: {
         hits: 4,
-        prowess: 2,
-        resilience: 2,
         spells: 4,
         spellbooks: ["sorcery", "demonic"],
-        dice: ["cunning", "black", "black", "black", "black"]
+        dice: [Dice.cunning, Dice.blackMagic, Dice.blackMagic, Dice.blackMagic, Dice.blackMagic]
     }
 }

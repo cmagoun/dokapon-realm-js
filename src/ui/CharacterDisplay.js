@@ -28,7 +28,8 @@ class CharacterDisplay extends Component {
         return <div style={style.main}>
             <div style={style.left}>
                 <div style={style.name}>{entity.character.name}</div>
-                <CharacterImage height="72px" width="72px" profession={entity.profession.value}/>
+                <div style={style.name}>Level {entity.character.level} {entity.character.profession}</div>
+                <CharacterImage height="72px" width="72px" profession={entity.character.profession}/>
             </div>
 
             <div>

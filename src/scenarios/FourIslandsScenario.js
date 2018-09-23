@@ -27,14 +27,13 @@ export default class FourIslandsScenario {
 
         this.startMap = "fourislands";
 
+        this.introTitle = "The Story So Far";
         this.introText = `<p>This is the story of a young, strapping, adventurous, heroic lad named... Tim.
         Tim will likely die here, but that is ok, because I am just trying to fill out some text to see
         just how bad this looks on screen.</p>
         
         <p>Sincerely,</p>
         <p>The GM</p>`;
-
-        this.introTitle = "The Story So Far";
     }
 
     loadMaps() {
@@ -47,14 +46,14 @@ export default class FourIslandsScenario {
     loadTiled() {
         this.mapData.forEach(md => {
             this.tiled.set(md.alias, new TiledMap(md.path, md.alias));
-        })
+        });
     }
 
 
     setInitialGameState(game) {
         const players = game.players();
         players.forEach(p => {
-            const pos = startPos[p.profession.value];
+            const pos = startPos[p.character.profession];
             Character.setPos(p, pos.map, pos.id, this, SET_SPRITE);
         });
     }

@@ -15,9 +15,9 @@ export const setPos = (entity, mapName, spaceId, scenario, setSpritePos) => {
     const pos = getPixiPos(entity, scenario);
 
     if(!entity.sprite) {
-        entity.add(Components.sprite(`${entity.profession.value}1`, pos.x, pos.y));
+        entity.add(Components.sprite(`${entity.character.profession}1`, pos.x, pos.y));
     } else {
-        entity.edit("sprite", {name:`${entity.profession.value}1`, x:pos.x, y:pos.y});
+        entity.edit("sprite", {name:`${entity.character.profession}1`, x:pos.x, y:pos.y});
     }
 }
 
