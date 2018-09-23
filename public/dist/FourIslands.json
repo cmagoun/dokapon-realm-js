@@ -3,7 +3,7 @@
  "layers":[
         {
          "compression":"gzip",
-         "data":"H4sIAAAAAAAACu3DsQ0AAAwCICf7\/8f+0UBCL6mqqqqqqqqqqqqqqqqq+uoAnWwkNkA4AAA=",
+         "data":"H4sIAAAAAAAACu3DMQkAAAwDsF7zr7I66mMkkF5SVVVVVVVVVVVVVVVVVfXVAfPPpL9AOAAA",
          "encoding":"base64",
          "height":60,
          "name":"Base",
@@ -24,7 +24,7 @@
         }, 
         {
          "compression":"gzip",
-         "data":"H4sIAAAAAAAACu2a607DMAyFK\/X9n4GyscLY4HH42z0KjZilyIobJzm5oRzJfwCl\/nJcNxemaWhoaOh\/6TJP07LH21w7k\/wyrC9WLAHR2\/xw1tgI5a5RTyhWLTcxLkI95WZHs\/L8jxhRdaJVDm\/t+Njjs9C7oVFOTqNY1hzMubx9n7Hjo5jRnCegrzmYW6xfKV4b4k3pSb3xUh45WU1QT6jNa+K2x7VxViRvbmaUVnBe3w17S8pVg615W5qXvldfFb01Qte0xMq\/V\/f5b31S0ttQ5nsEq\/S9uj1\/LvW4HN7a0tYWwlsKWiOeC7Marc\/64jV2Ys9HeMt\/fy7MKrG7nr0Beamur5U4Q6ThJl5ff7g1zkrSeOzrS7VqOEba2pb6EvWznhRS1y7eXmrZ1ib0dg0vYl9bUzY7xeOgbz065\/Vpc8zD0NBQGfEzdN+58EXxNy1KuiuQvieh8xKbS8y49t2dHWY835mUxOv61iKYXfMeMm7qHY+LVxozdZ18lKtWLh9SeV3ripB11FG91eaV1gy0h9Z6G3ofXppXuzZaBVbuYcqca3lj393UdSD63lnbF0K9Re3LU9+h2Jy057Do8wcUb0xePmb0+QOillPnX5rvHHvxWG+RNSbl4POWvNKeycR4W+oOSctqQvq\/spD1QilWEn+W0c\/B8zZQz6nBasQ91tSor9fxcyxNlDyL5vlr9x1r5bxTRdw95Tw0NDTUq34Bme6GlEA4AAA=",
+         "data":"H4sIAAAAAAAACu2a207DMAyGK\/X9RdlYYWzwNtx2r0QjZimy4sZO7BxQfsk3gBJ\/seskDtM0NDQ09L90madp2e1tru2JvRzri2eLwHpbH8yaalLuGvmkxcrlBsaFyCdrdm1W7P8Ro1aecGURW98+dvss9G1wZMnplMpqwWwV2\/dZd3wtZm3Ok2JcLZhbzF\/KXhvizalJvfGCH5aszqAm1OZ1dtvt2jirJq81s5ZWZb++G44tyCoHW4ttaV7Yr74qxtZJO6cpVrxf3ee\/80nJ2EqZ7wms1H51e\/6cqnEWsfXFzS2N2ILBGfFcmNVpfeYXzrETml8jtvj358KsFHto7k2RF\/L6WolTIg438Mbqw61xVhAnxrG6VCuHU8TNbaouQT3rSZK8DvH2ksu+NqK2c3g17rU15bODPQ7q1qNz3pi2wDoMDQ2VEe6hx\/rCF8bftCjqrYDaT6TrkupLyrj+251vbrxYT4riDe21GsyhdZeMm\/vGE+Klxsw9Jx\/5ylUoDrm8oXOF5Bx1lG+1eakzA9yhubGVvoeX5uWejVaCFccwZ825vKnfLpdVe17KuHVBGlute3nuN5TqE7cPq91\/0OJN8SvGrN1\/0Mjl3PWn1tviLp4aW80co3yIxRZixe3JpMS21BsSl9UZ9X9lkvNCKVYQnsvp52A+Sd+9dv6GhGPMydFYrcN9LI6V7EVj\/7n3jrWy37kC7p58HhoaGupVv4RSqwhAOAAA",
          "encoding":"base64",
          "height":60,
          "name":"Land",
@@ -45,7 +45,7 @@
         }, 
         {
          "compression":"gzip",
-         "data":"H4sIAAAAAAAACu3W0QqCQBAF0OpJ\/\/9rK4tYIjIba20xRjgHxEVF7zjL6m4HAACwzLG7b9\/Gl67+nqcF1\/5T1lxrWVLvMOnxo\/9h3\/t4nmRQshxm8kW1lHPn7v3YeD89X2xhLk0ztmTOVG9tlkyZW8zW0b\/O72ieNj8jkXHGlrzlfe3753jJt20NNbX8Uu81WNsyGGb+MaJ1uHYd35Kol5\/6W\/u+sorybyU7AAAAAAAAAEBWN7ZjifJAOAAA",
+         "data":"H4sIAAAAAAAACu3W4QqCMBQGUH\/6\/s9QmVTvGCMEsc2mw7jCOSCKin7XO6ddBwAAsM2l\/yy\/tu99\/TWvG879p6i5jrKl3mHR46n\/ub4\/CuMkgpTlVciXqyUdu\/Xf++br5fHkDGNpmbElc6R6a7NEytyiVMf0Hq6N09Z7RDLP2JI3Pa\/nzm\/bEWpq2VPvmJnbIhgK\/xi5ebh2Hj+TXC\/X+lv7vKLK5T9LdgAAAAAAAACAqN7SgbLqQDgAAA==",
          "encoding":"base64",
          "height":60,
          "name":"Roads",
@@ -66,7 +66,7 @@
         }, 
         {
          "compression":"gzip",
-         "data":"H4sIAAAAAAAACu3UQQqAIBAF0JZdsGN1ii7aKggpK7Caqfc2irj48wW7DgAAiGjq306wbZ3rzP5Prsz9tY5q84w79yJ0UGY4ylc7K9fIMmR8QssesnWaLW\/NnbNE+7MWw8ZZpHytXfmbz77Zn\/uKLnt+AAAAAAAAAIBoZlX+EEVAOAAA",
+         "data":"H4sIAAAAAAAACu3UQQqAIBAF0JYdsON0gy7dKggpK7Caqfc2irj48wW7DgAAiGjs306wbZ3rzP5Prsz9tY5q80w79yJ0UGY4ylc7K9fIMmR8QssesnWaLW\/NnbNE+7MWw8ZZpHytXfmbz77Zn\/uKLnt+AAAAAAAAAIBoZozvIYdAOAAA",
          "encoding":"base64",
          "height":60,
          "name":"Spaces",
@@ -87,7 +87,7 @@
         }, 
         {
          "compression":"gzip",
-         "data":"H4sIAAAAAAAACu3RsQ3AIAxFQUc0iKnI\/rswAy1CSgsR3E3wnx0BAAAA8K09uxf8S04RNe1esc7YWqbu97A7jK2n\/\/imVgAAAAAAAAAAuFkHiHi06UA4AAA=",
+         "data":"H4sIAAAAAAAACu3RsQ3AIAwEQAc2gv3XyRJRJFpS0AYEd62b\/3cEAAAAwNh9zU6wlidFlDw7xX\/6rm\/63upmO\/Rdd\/\/xSV0BAAAAAAAAAOBkDWU0hShAOAAA",
          "encoding":"base64",
          "height":60,
          "name":"TerrainUnder",
@@ -108,7 +108,7 @@
         }, 
         {
          "compression":"gzip",
-         "data":"H4sIAAAAAAAACu3S0Q3CIBSFYQqzaNdQE51D3aO6hnUQ51D3UFeQm7aBkjYlPhRD\/i+5LxQSDqdKAQAAAAAQb1sotbPzKVLfZB6VzXmyc84wr3T5DroM88qeV2TnB91MZ6\/d2lGPn5vLUJcLe6+lnVL390x1Ltnqdq7t2Uuwljq3n2Wsv6m8XYddroeXZ2WaqQfeIgXp8la4KQfu4u8Jv4dZJcvG9PdI3rVp3kHm+Qf\/9S9isubkrl1n0l\/OWQEAAAAAAAAAAAAAAIDQFzI+LRRAOAAA",
+         "data":"H4sIAAAAAAAACu3S0Q3CIBSFYQpraIdQB9Al1E2qQ1hHcQl1E3UNuWkbKGlT4kMx5P+S+0Ih4XCqFAAAAAAA8baFUjs7nyL1TeZR2ZwnO+cM80qX76DLMK\/seUV2ftDNdPbarR31+Lm5DHW5sPda2il1f89U55Ktbufanr0Ea6lz+1nG+pvK23XY5Xp4eVammXrgLVKQLm+Fm3LgLv6e8HuYVbJsTH+P5F2b5h1knn\/wX\/8iJmtO7tp1Jv3lnBUAAAAAAAAAAAAAAAAIfQFenuBCQDgAAA==",
          "encoding":"base64",
          "height":60,
          "name":"Terrain",
@@ -129,7 +129,7 @@
         }, 
         {
          "compression":"gzip",
-         "data":"H4sIAAAAAAAACu3QsQ3AIAwAQSMayFjZfxZYIWVoohRuELqrXFiW3hEAAAAAOa2+81W\/93YwSsQsuRv9p7Ft\/oOMe2k7uRMAAAAAAAAAAOAED0yJ6DpAOAAA",
+         "data":"H4sIAAAAAAAACu3QsQ3AIAwEQENWYv9xkiEgEiVVlMINQnfVF9ZL7wgAAACAnF5Xfuv33Q7uEvGUXMf42dg3\/0FGu1Y+eScAAAAAAAAAAMAJJncIyBtAOAAA",
          "encoding":"base64",
          "height":60,
          "name":"TerrainOver",
@@ -150,7 +150,7 @@
         }, 
         {
          "compression":"gzip",
-         "data":"H4sIAAAAAAAACu3VMQrAIBBFQYtYeP8Lp7IJkmhAXHEGfmO1rzIlAAAgolxWX9B2lbH10hvDaG9tfr7lzq32p7e1XXorvXr1jvdGaZ7dG83M3h28\/b0tp\/UCAAAAAAAAAPDtBnifjSpAOAAA",
+         "data":"H4sIAAAAAAAACu3VMQrAIBBFQUvvf5F4xFQ2QRINiCvOwG+s9lWmBAAARFTy6gvarjy2XnpjGO2tzc+30rnV\/vS2tktvpVev3vHeKM2ze6OZ2buDt7+35bReAAAAAAAAAAC+3XPHTS9AOAAA",
          "encoding":"base64",
          "height":60,
          "name":"Regions",
@@ -163,7 +163,7 @@
         }, 
         {
          "compression":"gzip",
-         "data":"H4sIAAAAAAAACu3OQQEAAAQEsNO\/i4xa8LAlWAIAAADAJ13XAwAAAAAAAAAAADYMY7umbEA4AAA=",
+         "data":"H4sIAAAAAAAACu3OQQEAAAQEsNM\/iJpa8LAlWAIAAADAJ13XAwAAAAAAAAAAADYMpfW2YUA4AAA=",
          "encoding":"base64",
          "height":60,
          "name":"Specials",
@@ -189,50 +189,42 @@
  "tileheight":48,
  "tilesets":[
         {
-         "columns":56,
+         "columns":55,
          "firstgid":1,
          "image":"spaces.png",
-         "imageheight":2014,
-         "imagewidth":2732,
+         "imageheight":1872,
+         "imagewidth":2640,
          "margin":0,
          "name":"spaces",
          "spacing":0,
-         "tilecount":2296,
+         "tilecount":2146,
          "tileheight":48,
          "tileproperties":
             {
-             "140":
+             "138":
                 {
                  "type":"chapel"
                 },
-             "2210":
-                {
-                 "type":"space"
-                },
-             "429":
+             "422":
                 {
                  "type":"item"
                 },
-             "84":
+             "83":
                 {
                  "type":"town"
                 }
             },
          "tilepropertytypes":
             {
-             "140":
+             "138":
                 {
                  "type":"string"
                 },
-             "2210":
+             "422":
                 {
                  "type":"string"
                 },
-             "429":
-                {
-                 "type":"string"
-                },
-             "84":
+             "83":
                 {
                  "type":"string"
                 }
@@ -241,7 +233,7 @@
         }, 
         {
          "columns":11,
-         "firstgid":2297,
+         "firstgid":2212,
          "image":"roads.png",
          "imageheight":48,
          "imagewidth":528,
@@ -370,7 +362,7 @@
         }, 
         {
          "columns":11,
-         "firstgid":2308,
+         "firstgid":2223,
          "image":"regions.png",
          "imageheight":48,
          "imagewidth":528,
