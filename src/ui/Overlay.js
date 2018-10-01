@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import withContext from '../ecs/withContext';
 import CharacterDisplay from './CharacterDisplay';
+import CommandDisplay from './CommandDisplay';
 
 const style = {
     overlay: {
@@ -17,13 +18,28 @@ const style = {
 }
 
 class Overlay extends Component {
+    constructor(props) {
+        super(props);
+        this.mouseOver = this.handleMouseOver.bind(this);
+        this.mouseOut = this.handleMouseOut.bind(this);
+    }
+
     render() {
         const {game} = this.props;
         const player = game.currentPlayer();
 
-        return <div style={style.overlay}>
+        return <div onMouseOver={this.mouseOver} onMouseOut={this.mouseOut} style={style.overlay}>
             <CharacterDisplay entity={player}/>
+            <CommandDisplay/>
         </div>
+    }
+
+    handleMouseOver(evt) {
+        this.props.game.startModal();
+    }
+
+    handleMouseOut(evt) {
+        this.props.game.endModal();
     }
 }
 

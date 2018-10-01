@@ -10,6 +10,8 @@ class Main extends Component {
     constructor(props) {
         super(props);
         this.ecsUpdated = this.updateScreen.bind(this);
+        this.pushui = (ui) => this.handlePushUi.bind(this, ui);
+        this.popui = () => this.handlePopUi.bind(this);
         this.state = {components:[]};
     }
 
@@ -25,7 +27,13 @@ class Main extends Component {
         const length = this.state.components.length;
         return <div>
             {this.state.components
-                .map((c,i) => React.cloneElement(c, {key:i, events:i===length-1}))}
+                .map((c,i) => React.cloneElement(c, 
+                    {
+                        key:i, 
+                        events:i===length-1,
+                        pushui: this.pushui,
+                        popui: this.popui
+                    }))}
         </div>
     }
 
@@ -57,6 +65,18 @@ class Main extends Component {
                 this.props.game.endModal();
                 this.setState({components:[<Overlay/>]});
         }
+    }
+
+    handlePushUi(ui) {
+        const components = this.state.components;
+        components.push(ui);
+        this.setState({components});
+    }
+
+    handlePopUi() {
+        const components = this.state.components;
+        components.pop();
+        this.setState({components});
     }
 }
 

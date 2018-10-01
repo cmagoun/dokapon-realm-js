@@ -44,7 +44,13 @@ class CharacterSelect extends Component {
 
         const players = [];
         for(let i = 0; i < 6; i++) {
-            players.push({index: i, active: false,  name:`Player ${i+1}`, profession:"", control:"player", image:""});
+            players.push({
+                index: i, 
+                active: false, 
+                name:`Player ${i+1}`, 
+                profession:"", 
+                control:"player", 
+                image:""});
         }
 
         this.state={players};
