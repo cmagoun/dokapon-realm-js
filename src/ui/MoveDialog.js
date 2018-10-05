@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import withContext from '../ecs/withContext';
 import Centered from './Centered';
 import SimpleDialog from './SimpleDialog';
-import * as Dialog from './Dialog';
+import States from '../game/GameStates';
 
 class MoveDialog extends Component {
     render() {
@@ -20,7 +20,7 @@ class MoveDialog extends Component {
     }
 
     handleDone() {
-        Dialog.pop();
+        this.props.game.updateGameState(States.SHOW_MOVE);
     }
 }
 

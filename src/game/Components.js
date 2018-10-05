@@ -79,7 +79,8 @@ export const turnTaker = (index) => {
         index,
         itemsused: 0,
         moveroll: undefined,
-        spellsused: 0
+        spellsused: 0,
+        movepaths: []
     };
 };
 

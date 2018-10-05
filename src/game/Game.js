@@ -5,6 +5,7 @@ import States from './GameStates';
 import * as Entities from './Entities';
 import * as Professions from './Professions';
 import * as Components from './Components';
+import * as Move from './Move';
 
 export default class Game extends BaseGameManager {
     constructor(app, scenario) {
@@ -67,6 +68,16 @@ export default class Game extends BaseGameManager {
         const player = this.currentPlayer();
         player.edit("turntaker", {itemsused: 0, spellsused: 0, moveroll:undefined});
         //dialog appears
+    }
+
+    calculateMove() { 
+        const player = this.currentPlayer();  
+        const moveroll = Move.roll(player);
+        player.edit("turntaker", {moveroll});
+
+        const space = player.pos;
+        const paths = Move.findPaths(player.pos, moveroll, this.scenario.maps.get(space.map).spaces);
+        
     }
 
     takeTurn() {

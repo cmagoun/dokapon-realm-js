@@ -19,11 +19,14 @@ const style = {
 
 class CommandDisplay extends Component {
     render() {
+        const player = this.props.game.currentPlayer();
+        const moveDisabled = player.turntaker.moveroll;
+
         return <div style={style.main}>
             <div><button style={style.button} onClick={this.handleDialog.bind(this, Dialog.itemsdialog)}>Items</button></div>
             <div><button style={style.button} onClick={this.handleDialog.bind(this, Dialog.spellsdialog)}>Spells</button></div>
             <div><button style={style.button} onClick={this.handleDialog.bind(this, Dialog.powersdialog)}>Powers</button></div>
-            <div><button style={style.button} onClick={this.handleMove.bind(this)}>Move</button></div>
+            <div><button style={style.button} disabled={moveDisabled} onClick={this.handleMove.bind(this)}>Move</button></div>
         </div>
     }
 
@@ -32,7 +35,7 @@ class CommandDisplay extends Component {
     }
 
     handleMove() {
-        Move.roll(this.props.game);
+        this.props.game.calculateMove();
         Dialog.show(Dialog.movedialog);
     }
 }
