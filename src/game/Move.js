@@ -3,9 +3,7 @@ import * as Vector from "../utils/vector";
 export const roll = (player) => {
     const roll = Vector.getRandomInt(1, 25);
     const moveroll = Math.ceil((roll - 1)/4);
-
-    
-    return 1;
+    return moveroll;
 }
 
 export const findPaths = (from, distance, mapSpaces) => {

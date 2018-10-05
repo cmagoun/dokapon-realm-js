@@ -1,38 +1,36 @@
 import Scene from './Scene';
+import {tileSize} from '../utils/constants';
+import * as Entities from '../game/Entities';
 
 const DIRTY = true;
-const INIT = true;
 
-export default class PlayerLayer extends Scene {
+export default class MovePathsLayer extends Scene {
     constructor(key, game) {
         super(key, game);
         this.affectedByCamera = true;
     } 
 
     init() {
-        this.drawPlayers(INIT);
+        this.createMoveArrows();
     }
 
     draw() {
-        this.drawPlayers();
+        this.drawMoveArrows();
     }
 
-    drawPlayers(init) {
+    drawMoveArrows() {
         const cm = this.game.cm;
-        const entities = cm.entitiesWith(["sprite", "tag"], DIRTY && !init)
-            .filter(e => e.tag.value === "player");
+        const entities = cm.entitiesWith(["sprite", "tag"], DIRTY)
+            .filter(e => e.tag.value === "movearrow");
 
         entities.forEach(e => {
-            const circle = this.getCircle(e);
             const sprite = this.getSprite(e);
             
             if(e.isToBeDestroyed())  {
-                this.removeChild(circle);
                 this.removeChild(sprite);                
                 return;
             }     
 
-            this.addChild(circle);
             this.addChild(sprite);
         });
     }
@@ -49,19 +47,6 @@ export default class PlayerLayer extends Scene {
         return resultSprite;
     }
 
-    getCircle(entity) {
-        if(!entity.sprite) return undefined;
-
-        const circleSprite = entity.sprite.circle || 
-            this.spriteMap.get(`${entity.id}_circle`) || 
-            this.spriteMap.copyTexture("circle", `${entity.id}_circle`);
-
-        this.setCircleProperties(circleSprite, entity.sprite);
-        if(!entity.sprite.circle) entity.edit("sprite", {circle:circleSprite});
-
-        return circleSprite;
-    }
-
     setSpriteProperties(rSprite, eSprite) {
         rSprite.x = eSprite.x;
         rSprite.y = eSprite.y;
@@ -74,13 +59,14 @@ export default class PlayerLayer extends Scene {
         //rSprite.rotation = eSprite.rotation;
     }
 
-    setCircleProperties(circle, eSprite) {
-        circle.x = eSprite.x;
-        circle.y = eSprite.y + 8;
-        circle.tint = eSprite.color;
-        circle.scale.x = eSprite.scale.x;
-        circle.scale.y = eSprite.scale.y;
-        circle.anchor.x = eSprite.anchor.x;
-        circle.anchor.y = eSprite.anchor.y;
+    createMoveArrows() {
+        const player = this.game.currentPlayer();
+        const paths = player.turntaker.movepaths;
+
+        paths.forEach(p => {
+            const end = p[p.length-1];
+            const e = Entities.moveArrow(end.x * tileSize, (end.y-1) * tileSize, this.game.cm).read();
+            this.game.animate(e.id, e.animations.bob(this.game));
+        });
     }
 }

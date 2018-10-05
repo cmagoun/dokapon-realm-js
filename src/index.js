@@ -20,7 +20,8 @@ Loader
     .add("creatures", "dist/creatures.png")
     .add("spaces", "dist/spaces.png")
     .add("regions", "dist/regions.png")
-    .add("roads", "dist/roads.png");
+    .add("roads", "dist/roads.png")
+    .add("redarrow", "dist/redarrow.png");
 
 const scenario = new FourIslandsScenario(Loader);
 scenario.loadMaps();
@@ -79,6 +80,7 @@ function setupSprites(game) {
     game.spriteMap.loadTexture("witchking1", "dist/creatures.png", 624, 48, 48, 48);
     game.spriteMap.loadTexture("witchking2", "dist/creatures.png", 624, 96, 48, 48);
     game.spriteMap.loadTexture("circle", "dist/creatures.png", 336, 1104, 48, 48);
+    game.spriteMap.loadTexture("redarrow", "dist/redarrow.png", 0, 0, 48, 48);
 }
 
 

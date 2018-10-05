@@ -7,6 +7,11 @@ import * as Professions from './Professions';
 import * as Components from './Components';
 import * as Move from './Move';
 
+import MapLayer from '../scenes/MapLayer';
+import PlayerLayer from '../scenes/PlayerLayer';
+import ControlLayer from '../scenes/ControlLayer';
+import MovePathsLayer from '../scenes/MovePathsLayer';
+
 export default class Game extends BaseGameManager {
     constructor(app, scenario) {
         super();
@@ -45,6 +50,10 @@ export default class Game extends BaseGameManager {
                 this.takeTurn();
                 break;
 
+            case States.SHOW_MOVE:
+                this.showMove();
+                break;
+
             case States.TURN_DONE:
                 this.turnDone();
                 break;
@@ -76,8 +85,20 @@ export default class Game extends BaseGameManager {
         player.edit("turntaker", {moveroll});
 
         const space = player.pos;
-        const paths = Move.findPaths(player.pos, moveroll, this.scenario.maps.get(space.map).spaces);
+        const movepaths = Move.findPaths(player.pos, moveroll, this.scenario.maps.get(space.map).spaces);
+        player.edit("turntaker", {movepaths});
+
         
+    }
+
+    showMove() {
+        const mapLayer = new MapLayer("map", this);
+        const playerLayer = new PlayerLayer("player", this);
+        const controlLayer = new ControlLayer("control", this);
+        const moveLayer = new MovePathsLayer("move", this);
+
+        this.sceneMgr.setScreens([mapLayer, playerLayer, controlLayer, moveLayer]);
+        this.updateGameState(States.TAKING_TURN);
     }
 
     takeTurn() {
