@@ -7,7 +7,7 @@ export const setPos = (entity, mapName, spaceId, scenario, setSpritePos) => {
     if(!entity.pos) {
         entity.add(Components.pos(mapName, spaceId));
     } else {
-        entity.edit("pos", {mapName, spaceId});
+        entity.edit("pos", {mapName, id:spaceId});
     }
 
     if(!setSpritePos) return;
@@ -33,3 +33,12 @@ export const getPixiPos = (entity, scenario) => {
     if(!entity.pos) return undefined;
     return Vector.multiply(getPos(entity, scenario), tileSize);
 }
+
+export const changeSpace = (entity, spaceId, scenario, alsoMoveSprite) => {
+    if(!entity.pos) return;
+    setPos(entity, entity.pos.map, spaceId, scenario, alsoMoveSprite);
+}
+
+export const startTurn = (entity) => {
+    entity.edit("turntaker", {itemsused: 0, spellsused: 0, moveroll:undefined, movepaths:[]});
+}       

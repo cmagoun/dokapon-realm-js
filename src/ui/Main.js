@@ -68,6 +68,7 @@ class Main extends Component {
             case States.SHOW_MOVE:
                 this.props.game.endModal();
                 this.setState({components:[<Overlay/>]});
+
         }
     }
 

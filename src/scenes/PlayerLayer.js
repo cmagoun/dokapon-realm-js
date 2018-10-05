@@ -7,6 +7,7 @@ export default class PlayerLayer extends Scene {
     constructor(key, game) {
         super(key, game);
         this.affectedByCamera = true;
+        this.camera = game.service("camera");
     } 
 
     init() {
@@ -34,6 +35,9 @@ export default class PlayerLayer extends Scene {
 
             this.addChild(circle);
             this.addChild(sprite);
+
+            if(e.cameraon) this.camera.centerOn(sprite);
+            
         });
     }
 
