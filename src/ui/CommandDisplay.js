@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import withContext from '../ecs/withContext';
-import {Dialogs} from '../utils/constants';
+import * as Dialog from './Dialog';
+import * as Move from '../game/Move';
 
 const style = {
     main: {
@@ -18,17 +19,21 @@ const style = {
 
 class CommandDisplay extends Component {
     render() {
-        const game = this.props.game;
         return <div style={style.main}>
-            <div><button style={style.button} onClick={this.handleDialog.bind(this, Dialogs.itemsdialog)}>Items</button></div>
-            <div><button style={style.button} onClick={this.handleDialog.bind(this, Dialogs.spellsdialog)}>Spells</button></div>
-            <div><button style={style.button} onClick={this.handleDialog.bind(this, Dialogs.powersdialog)}>Powers</button></div>
-            <div><button style={style.button}>Move</button></div>
+            <div><button style={style.button} onClick={this.handleDialog.bind(this, Dialog.itemsdialog)}>Items</button></div>
+            <div><button style={style.button} onClick={this.handleDialog.bind(this, Dialog.spellsdialog)}>Spells</button></div>
+            <div><button style={style.button} onClick={this.handleDialog.bind(this, Dialog.powersdialog)}>Powers</button></div>
+            <div><button style={style.button} onClick={this.handleMove.bind(this)}>Move</button></div>
         </div>
     }
 
     handleDialog(dialog) {
-        this.props.game.showDialog(dialog);
+        Dialog.show(dialog)
+    }
+
+    handleMove() {
+        Move.roll(this.props.game);
+        Dialog.show(Dialog.movedialog);
     }
 }
 

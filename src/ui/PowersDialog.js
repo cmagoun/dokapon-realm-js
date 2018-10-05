@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import withContext from '../ecs/withContext';
 import Centered from './Centered';
 import SimpleDialog from './SimpleDialog';
+import * as Dialog from './Dialog';
 
 class PowersDialog extends Component {
     render() {
@@ -17,7 +18,7 @@ class PowersDialog extends Component {
     }
 
     handleDone() {
-        this.props.game.popDialog();
+        Dialog.pop();
     }
 }
 

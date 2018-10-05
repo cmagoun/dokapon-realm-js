@@ -4,14 +4,16 @@ import Centered from './Centered';
 import SimpleDialog from './SimpleDialog';
 import * as Dialog from './Dialog';
 
-class ItemsDialog extends Component {
+class MoveDialog extends Component {
     render() {
         const {game} = this.props;
         const currentPlayer = game.currentPlayer();
+        const roll = currentPlayer.turntaker.moveroll;
+
         return <Centered height={300} width={400}>
             <SimpleDialog
                 title={`Inventory`}
-                html= {`<p>${currentPlayer.character.name} has tons of crap`}
+                html= {`<p>You rolled a ${roll} for movement</p>`}
                 onOk={this.handleDone.bind(this)}/>
         </Centered>
 
@@ -22,4 +24,4 @@ class ItemsDialog extends Component {
     }
 }
 
-export default withContext(ItemsDialog);
+export default withContext(MoveDialog);

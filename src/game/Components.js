@@ -76,7 +76,10 @@ export const tag = (value) => {
 export const turnTaker = (index) => {
     return {
         cname:"turntaker",
-        index
+        index,
+        itemsused: 0,
+        moveroll: undefined,
+        spellsused: 0
     };
 };
 

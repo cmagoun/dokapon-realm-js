@@ -38,7 +38,7 @@ export default class Game extends BaseGameManager {
                 this.startRound();
                 break;
             case States.START_TURN:
-                //no op
+                this.startTurn();
                 break;
             case States.TAKING_TURN:
                 this.takeTurn();
@@ -63,9 +63,13 @@ export default class Game extends BaseGameManager {
         this.updateGameState(States.START_TURN);
     }
 
+    startTurn() {
+        const player = this.currentPlayer();
+        player.edit("turntaker", {itemsused: 0, spellsused: 0, moveroll:undefined});
+        //dialog appears
+    }
+
     takeTurn() {
-
-
         //what goes here... for now we are just ending our turn
         //this.updateGameState(States.TURN_DONE);
     }
@@ -131,13 +135,7 @@ export default class Game extends BaseGameManager {
         this.updateGameState(States.SCENARIO_START_SCREEN);
     }
 
-    showDialog(key) {
-        document.dispatchEvent(new CustomEvent("push_ui_element", {"detail": key } ));
-    }
 
-    popDialog() {
-        document.dispatchEvent(new CustomEvent("pop_ui_element"));
-    }
 
     updateGameState(newState, payload) {
         this.gameState = newState;
