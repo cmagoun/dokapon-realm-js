@@ -20,7 +20,7 @@ export default class PixiSceneManager {
         this.app.stage.removeChildren();
 
         this.screens.forEach(x => {
-            const incoming = screens.filter(s => s.key === x.key);
+            const incoming = screens.filter(s => s.key === x.key)[0];
             if(!incoming && x.teardown) {
                 x.teardown();
             }

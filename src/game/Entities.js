@@ -1,6 +1,8 @@
 import * as Components from './Components';
 import Walk from '../animations/Walk';
 import Bob from '../animations/Bob';
+import {tileSize} from '../utils/constants';
+import * as Vector from '../utils/vector';
 
 export const player = (name, profession, color, index, cm) => {
     return cm.createEntity(name)
@@ -9,7 +11,19 @@ export const player = (name, profession, color, index, cm) => {
         .add(Components.turnTaker(index))
         .add(Components.tag("player"))
         .add(Components.animations({
-            walk: (from, to, gm) => walk(from, to, gm)([`${profession}1`, `${profession}2`])
+            walk: (from, to, gm) => walk(from, to, gm)([`${profession}1`, `${profession}2`]),
+            walkPath: (path, gm) => {
+                const walks = [];
+                path.forEach((from, i) => {
+                    if(i === path.length-1) return;
+                    walks.push(
+                        walk(
+                            Vector.multiply(from, tileSize), 
+                            Vector.multiply(path[i+1], tileSize),
+                            gm)([`${profession}1`, `${profession}2`]));
+                });
+                return walks;
+            }
         }));
 };
 
@@ -23,5 +37,5 @@ export const moveArrow = (x, y, cm) => {
 }
 
 const walk = (from, to, gm) => (frames) => new Walk(
-    frames, from, to, 2.0, gm.spriteMap
+    frames, from, to, 6.0, gm.spriteMap
 );

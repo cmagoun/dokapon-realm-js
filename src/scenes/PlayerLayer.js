@@ -34,6 +34,11 @@ export default class PlayerLayer extends Scene {
 
             this.addChild(circle);
             this.addChild(sprite);
+
+            if(e.cameraon) {
+                const camera = this.game.service("camera");
+                camera.centerOn(sprite);
+            }
         });
     }
 

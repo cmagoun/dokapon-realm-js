@@ -1,6 +1,7 @@
 import * as Vector from "./vector";
 
 export const RCLICK = "right_click";
+export const LCLICK = "left_click";
 //export const MOUSEMOVE = "mouse_moved";
 
 //for now just tracks the mouse position
@@ -8,17 +9,17 @@ export default class MouseService {
     constructor(camera, tilesize) {
         this.mousemove = this.handleMouseMove.bind(this);
         this.rclick = this.handleRightClick.bind(this);
+        this.click = this.handleLeftClick.bind(this);
         this.x = 0;
         this.y = 0;
 
         this.camera = camera;
         this.tilesize = tilesize || 48;
-
-        this.RCLICK = "rclick";
     }
 
     init() {
         document.addEventListener("mousemove", this.mousemove);
+        document.addEventListener("click", this.click);
         document.addEventListener("contextmenu", this.rclick);
     }
 
@@ -64,6 +65,18 @@ export default class MouseService {
         evt.preventDefault();
         document.dispatchEvent(new CustomEvent(
             RCLICK, 
+            {"detail": {
+                pos: this.pos(),
+                gamePos: this.gamePos(),
+                shiftPos: this.shiftPos()
+            }}
+        ));
+    }
+
+    handleLeftClick(evt) {
+        evt.preventDefault();
+        document.dispatchEvent(new CustomEvent(
+            LCLICK, 
             {"detail": {
                 pos: this.pos(),
                 gamePos: this.gamePos(),

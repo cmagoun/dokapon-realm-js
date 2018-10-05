@@ -5,6 +5,7 @@ import * as Entities from './Entities';
 import * as Professions from './Professions';
 import * as Components from './Components';
 import * as Move from './Move';
+import * as Character from './Character';
 
 import MapLayer from '../scenes/MapLayer';
 import PlayerLayer from '../scenes/PlayerLayer';
@@ -73,7 +74,8 @@ export default class Game extends BaseGameManager {
 
     startTurn() {
         const player = this.currentPlayer();
-        player.edit("turntaker", {itemsused: 0, spellsused: 0, moveroll:undefined});
+        Character.startTurn(player);
+        this.updateGameState(States.WAITING_FOR_INPUT);
         //dialog appears
     }
 
@@ -97,6 +99,34 @@ export default class Game extends BaseGameManager {
 
         this.service("mgr").setScreens([mapLayer, playerLayer, controlLayer, moveLayer]);
         this.updateGameState(States.TAKING_TURN);
+    }
+
+    moveSelected(path) {
+        const player = this.currentPlayer();
+        const end = path[path.length-1];
+        
+        Character.changeSpace(player, end.id, this.scenario);
+
+        const mapLayer = new MapLayer("map", this);
+        const playerLayer = new PlayerLayer("player", this);
+        const controlLayer = new ControlLayer("control", this);
+        this.service("mgr").setScreens([mapLayer, playerLayer, controlLayer]);
+
+        if(path.length === 1) {
+            this.updateGameState(States.TURN_DONE);
+            return;
+        }
+
+
+        player.add(Components.cameraOn());
+
+        this.animate(
+            player.id, 
+            player.animations.walkPath(path, this), 
+            () => {
+                player.remove("cameraon");
+                this.updateGameState(States.TURN_DONE);
+            });
     }
 
     takeTurn() {

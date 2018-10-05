@@ -6,6 +6,12 @@ export const animations = (animations) => {
     }
 };
 
+export const cameraOn = () => {
+    return {
+        cname: "cameraon"
+    }
+}
+
 export const character = (name, profession, level, prowess, resilience) => {
     return {
         cname:"character",

@@ -9,7 +9,9 @@ const States = {
     TAKING_TURN: 7,
     SHOW_MOVE: 7.1,
     TURN_DONE: 8,
-    ROUND_DONE: 9
+    ROUND_DONE: 9,
+
+    WAITING_FOR_INPUT: 100
 }
 
 export default States;

@@ -4,7 +4,7 @@ import {RCLICK} from '../utils/MouseService';
 export default class ControlLayer extends Scene {
     constructor(key, game) {
         super(key, game);
-        this.diag = true;
+        this.diag = false;
         this.affectedByCamera = false;
 
         this.mouse = game.service("mouse");
