@@ -131,7 +131,13 @@ export default class Game extends BaseGameManager {
         this.updateGameState(States.SCENARIO_START_SCREEN);
     }
 
+    showDialog(key) {
+        document.dispatchEvent(new CustomEvent("push_ui_element", {"detail": key } ));
+    }
 
+    popDialog() {
+        document.dispatchEvent(new CustomEvent("pop_ui_element"));
+    }
 
     updateGameState(newState, payload) {
         this.gameState = newState;

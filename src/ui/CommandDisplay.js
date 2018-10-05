@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import withContext from '../ecs/withContext';
-import ItemsDialog from './ItemsDialog';
+import {Dialogs} from '../utils/constants';
 
 const style = {
     main: {
@@ -18,21 +18,18 @@ const style = {
 
 class CommandDisplay extends Component {
     render() {
+        const game = this.props.game;
         return <div style={style.main}>
-            <div><button style={style.button} onClick={this.handleItemsClick.bind(this)}>Items</button></div>
-            <div><button style={style.button} onClick={this.handleSpellsClick.bind(this)}>Spells</button></div>
-            <div><button style={style.button} onClick={this.handlePowersClick.bind(this)}>Powers</button></div>
-            <div><button style={style.button} onClick={this.handleMoveClick.bind(this)}>Move</button></div>
+            <div><button style={style.button} onClick={this.handleDialog.bind(this, Dialogs.itemsdialog)}>Items</button></div>
+            <div><button style={style.button} onClick={this.handleDialog.bind(this, Dialogs.spellsdialog)}>Spells</button></div>
+            <div><button style={style.button} onClick={this.handleDialog.bind(this, Dialogs.powersdialog)}>Powers</button></div>
+            <div><button style={style.button}>Move</button></div>
         </div>
     }
 
-    handleItemsClick() {
-        this.props.pushui(<ItemsDialog/>)
+    handleDialog(dialog) {
+        this.props.game.showDialog(dialog);
     }
-
-    handleSpellsClick() {}
-    handlePowersClick() {}
-    handleMoveClick() {}
 }
 
-export default CommandDisplay;
+export default withContext(CommandDisplay);
