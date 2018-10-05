@@ -4,8 +4,8 @@ export default class Scene {
     constructor(key, game) {
         this.key = key;
         this.game = game;
-        this.spriteMap = game.spriteMap;
-        this.mgr = game.sceneMgr;
+        this.spriteMap = game.service("smap");
+        this.mgr = game.service("mgr");
         this.initialized = false;
         this.initEachTime = false;
         this.container = new Container();

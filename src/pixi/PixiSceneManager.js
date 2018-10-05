@@ -1,13 +1,22 @@
-import {tileSize} from '../utils/constants';
+import {CAMERAMOVED} from '../utils/CameraService';
 
 export default class PixiSceneManager {
     constructor(app) {
         this.app = app;
         this.screens = [];
-        this.cameraOrigin = {x:0, y:0};
+        this.cameraMoved = this.handleCameraMoved.bind(this);
+    }
+
+    init() {
+        document.addEventListener(CAMERAMOVED, this.cameraMoved);
+    }
+
+    teardown(){
+        document.removeEventListener(CAMERAMOVED, this.cameraMoved);
     }
 
     setScreens(screens) {
+        const origin = this.parent.service("camera").origin;
         this.app.stage.removeChildren();
 
         this.screens.forEach(x => {
@@ -23,25 +32,14 @@ export default class PixiSceneManager {
                 if(s.init) s.init();
                 if(!s.initEachTime) s.initialized = true;
             }
-            this.app.stage.addChild(this.shiftedContainer(s, this.cameraOrigin));
+            this.app.stage.addChild(this.shiftedContainer(s, origin));
         });
     }
 
-    shiftedPosition(x, y) {
-        return {x: x+this.cameraOrigin.x, y:y+this.cameraOrigin.y};
-    }
-
-    gamePosition(x, y) {
-        const shift = this.shiftedPosition(x, y);
-        return {x: Math.floor(shift.x/tileSize), y:Math.floor(shift.y/tileSize)};
-    }
-
-    moveCamera(x, y) {
-        this.cameraOrigin = {x,y};
-
+    handleCameraMoved(evt) {   
         this.app.stage.removeChildren();
         this.screens.forEach(s => {
-            this.app.stage.addChild(this.shiftedContainer(s, this.cameraOrigin));
+            this.app.stage.addChild(this.shiftedContainer(s, evt.detail.origin));
         });
     }
 

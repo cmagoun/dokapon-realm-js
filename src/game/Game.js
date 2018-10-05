@@ -1,6 +1,5 @@
 import {BaseGameManager} from '../ecs/GameManager';
-import PixiSceneManager from '../pixi/PixiSceneManager';
-import SpriteMap from '../pixi/SpriteMap';
+
 import States from './GameStates';
 import * as Entities from './Entities';
 import * as Professions from './Professions';
@@ -13,12 +12,11 @@ import ControlLayer from '../scenes/ControlLayer';
 import MovePathsLayer from '../scenes/MovePathsLayer';
 
 export default class Game extends BaseGameManager {
-    constructor(app, scenario) {
+    constructor(scenario) {
         super();
-        this.app = app;
+        
         this.scenario = scenario;
-        this.spriteMap = new SpriteMap();
-        this.sceneMgr = new PixiSceneManager(app);
+
         this.modal = false;
 
         this.turn = 0;
@@ -97,7 +95,7 @@ export default class Game extends BaseGameManager {
         const controlLayer = new ControlLayer("control", this);
         const moveLayer = new MovePathsLayer("move", this);
 
-        this.sceneMgr.setScreens([mapLayer, playerLayer, controlLayer, moveLayer]);
+        this.service("mgr").setScreens([mapLayer, playerLayer, controlLayer, moveLayer]);
         this.updateGameState(States.TAKING_TURN);
     }
 

@@ -5,6 +5,7 @@ class BaseGameManager {
         this.cm = new ComponentManager();
         this.gameState = 0; //bogus value
         this.animationCallbacks = new Map();
+        this.services = new Map();
     }
 
     //Shortcuts so that app components do not need to
@@ -41,6 +42,16 @@ class BaseGameManager {
 
     update() {
         document.dispatchEvent(new CustomEvent("ecs_updated"));
+    }
+
+    addService(key, service) {
+        service.parent = this;
+        if(service.init) service.init(this);
+        this.services.set(key, service);
+    }
+
+    service(key) {
+        return this.services.get(key);
     }
 
     animate(id, animations, callback) {

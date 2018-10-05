@@ -4,9 +4,14 @@ import Centered from './Centered';
 import SimpleDialog from './SimpleDialog';
 import States from '../game/GameStates';
 import * as Character from '../game/Character';
-import {centerCameraOn} from '../utils/utils';
 
 class StartTurnBanner extends Component {
+    constructor(props) {
+        super(props);
+        this.mgr = props.game.service("mgr");
+        this.camera = props.game.service("camera");
+    }
+    
     render() {
         const {game} = this.props;
         const currentPlayer = game.currentPlayer();
@@ -23,9 +28,7 @@ class StartTurnBanner extends Component {
         const game = this.props.game;
 
         const pixiPos = Character.getPixiPos(game.currentPlayer(), game.scenario);
-        const camera = centerCameraOn(pixiPos);
-        game.sceneMgr.moveCamera(camera.x, camera.y);
-
+        this.camera.centerOn(pixiPos);
         this.props.game.updateGameState(States.TAKING_TURN);
     }
 }

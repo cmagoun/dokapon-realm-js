@@ -10,7 +10,10 @@ import FourIslandsScenario from './scenarios/FourIslandsScenario';
 import States from './game/GameStates';
 import TurnLoop from './ecs/TurnLoop';
 import Main from './ui/Main';
-import * as Entities from './game/Entities';
+import PixiSceneManager from './pixi/PixiSceneManager';
+import SpriteMap from './pixi/SpriteMap';
+import MouseService from './utils/MouseService';
+import CameraService from './utils/CameraService';
 
 const app = new Application();
 app.renderer.resize(window.innerWidth*.99, window.innerHeight*.99);
@@ -26,9 +29,22 @@ Loader
 const scenario = new FourIslandsScenario(Loader);
 scenario.loadMaps();
 
-const game = new Game(app, scenario);
+const sceneMgr = new PixiSceneManager(app);
+
+const game = createGame();
 
 Loader.load(setup);
+
+function createGame() {
+    const camera = new CameraService();
+    const result = new Game(scenario);
+    result.addService("pixi", app);
+    result.addService("smap", new SpriteMap());
+    result.addService("mgr", sceneMgr);
+    result.addService("camera", camera);
+    result.addService("mouse", new MouseService(camera, 48));
+    return result;
+}
 
 function setup() {
     //must happen AFTER Loader.load
@@ -40,7 +56,7 @@ function setup() {
     const playerLayer = new PlayerLayer("player", game);
     const controlLayer = new ControlLayer("control", game);
 
-    game.sceneMgr.setScreens([mapLayer, playerLayer, controlLayer]);
+    game.service("mgr").setScreens([mapLayer, playerLayer, controlLayer]);
 
     game.updateGameState(States.CHARACTER_SELECT);
 
@@ -48,8 +64,8 @@ function setup() {
         requestAnimationFrame(gameLoop);
         game.update();
         game.runAnimations();
-        game.draw();
-        game.app.render(game.app.stage);
+        sceneMgr.draw();
+        app.render(app.stage);
         
         game.cm.cleanUp();
         game.stopEvent = false;
@@ -71,16 +87,19 @@ ReactDOM.render(
 
 
 function setupSprites(game) {
-    game.spriteMap.loadTexture("whiteknight1", "dist/creatures.png", 48, 48, 48, 48);
-    game.spriteMap.loadTexture("whiteknight2","dist/creatures.png", 48, 96, 48, 48);
-    game.spriteMap.loadTexture("elf1", "dist/creatures.png", 96, 48, 48, 48);
-    game.spriteMap.loadTexture("elf2", "dist/creatures.png", 96, 96, 48, 48);
-    game.spriteMap.loadTexture("berserker1", "dist/creatures.png", 336, 48, 48, 48);
-    game.spriteMap.loadTexture("berserker2", "dist/creatures.png", 336, 96, 48, 48);
-    game.spriteMap.loadTexture("witchking1", "dist/creatures.png", 624, 48, 48, 48);
-    game.spriteMap.loadTexture("witchking2", "dist/creatures.png", 624, 96, 48, 48);
-    game.spriteMap.loadTexture("circle", "dist/creatures.png", 336, 1104, 48, 48);
-    game.spriteMap.loadTexture("redarrow", "dist/redarrow.png", 0, 0, 48, 48);
+    const sm = game.service("smap");
+
+    sm.loadTexture("whiteknight1", "dist/creatures.png", 48, 48, 48, 48);
+    sm.loadTexture("whiteknight2","dist/creatures.png", 48, 96, 48, 48);
+    sm.loadTexture("elf1", "dist/creatures.png", 96, 48, 48, 48);
+    sm.loadTexture("elf2", "dist/creatures.png", 96, 96, 48, 48);
+    sm.loadTexture("berserker1", "dist/creatures.png", 336, 48, 48, 48);
+    sm.loadTexture("berserker2", "dist/creatures.png", 336, 96, 48, 48);
+    sm.loadTexture("witchking1", "dist/creatures.png", 624, 48, 48, 48);
+    sm.loadTexture("witchking2", "dist/creatures.png", 624, 96, 48, 48);
+    sm.loadTexture("circle", "dist/creatures.png", 336, 1104, 48, 48);
+    sm.loadTexture("redarrow", "dist/redarrow.png", 0, 0, 48, 48);
+    sm.loadTexture("yellowsquare", "dist/regions.png", 96, 0, 48, 48 );
 }
 
 
