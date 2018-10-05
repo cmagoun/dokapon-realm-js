@@ -1,3 +1,5 @@
+import {tileSize} from '../utils/constants';
+
 export default class PixiSceneManager {
     constructor(app) {
         this.app = app;
@@ -23,6 +25,15 @@ export default class PixiSceneManager {
             }
             this.app.stage.addChild(this.shiftedContainer(s, this.cameraOrigin));
         });
+    }
+
+    shiftedPosition(x, y) {
+        return {x: x+this.cameraOrigin.x, y:y+this.cameraOrigin.y};
+    }
+
+    gamePosition(x, y) {
+        const shift = this.shiftedPosition(x, y);
+        return {x: Math.floor(shift.x/tileSize), y:Math.floor(shift.y/tileSize)};
     }
 
     moveCamera(x, y) {

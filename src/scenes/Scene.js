@@ -5,7 +5,7 @@ export default class Scene {
         this.key = key;
         this.game = game;
         this.spriteMap = game.spriteMap;
-        this.mgr = game.sceneManager;
+        this.mgr = game.sceneMgr;
         this.initialized = false;
         this.initEachTime = false;
         this.container = new Container();

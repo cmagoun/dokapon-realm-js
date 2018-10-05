@@ -1,9 +1,17 @@
-import {TexCache, Texture, Sprite} from '../pixi/Aliases';
+import {TexCache, Texture, Sprite, Text} from '../pixi/Aliases';
 import { Rectangle } from 'pixi.js';
 
 export default class SpriteMap {
     constructor() {
         this.textureMap = new Map();
+    }
+
+    text(value, position, options) {
+        const result = new Text(value, options);
+        result.position.x = position.x;
+        result.position.y = position.y;
+
+        return result;
     }
 
     loadTexture(key, sheet, x, y, w, h) {
