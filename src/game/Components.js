@@ -10,7 +10,7 @@ export const cameraOn = () => {
     return {
         cname: "cameraon"
     }
-}
+};
 
 export const character = (name, profession, level, prowess, resilience) => {
     return {
@@ -43,7 +43,13 @@ export const pos = (map, id) => {
         cname: "pos",
         map,
         id
-    }
+    };
+};
+
+export const sharing = () => {
+    return {
+        cname:"sharing"
+    };
 };
 
 export const sprite = (name, x, y, options) => {

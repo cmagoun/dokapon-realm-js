@@ -105,14 +105,16 @@ export default class Game extends BaseGameManager {
         const player = this.currentPlayer();
         const end = path[path.length-1];
         
-        Character.changeSpace(player, end.id, this.scenario);
+        
 
         const mapLayer = new MapLayer("map", this);
         const playerLayer = new PlayerLayer("player", this);
         const controlLayer = new ControlLayer("control", this);
         this.service("mgr").setScreens([mapLayer, playerLayer, controlLayer]);
 
+        //rolled a 0, no need to animiate
         if(path.length === 1) {
+            Character.changeSpace(player, end.id, this.scenario);
             this.updateGameState(States.TURN_DONE);
             return;
         }
@@ -125,6 +127,7 @@ export default class Game extends BaseGameManager {
             player.animations.walkPath(path, this), 
             () => {
                 player.remove("cameraon");
+                Character.changeSpace(player, end.id, this.scenario);
                 this.updateGameState(States.TURN_DONE);
             });
     }
@@ -169,9 +172,36 @@ export default class Game extends BaseGameManager {
 
     //helpers
     currentPlayer() {
-        return this
+        const c = this
             .entitiesWith("turntaker")
             .filter(e => e.turntaker.index === this.currentPlayerIndex)[0];
+
+        return c;
+    }
+
+    isCurrent(player) {
+        return this.currentPlayer().id === player.id;
+    }
+
+    isSharingSpace(entity) {
+        const current = this.currentPlayer();
+        if(current === undefined) return 0;
+
+        const sharing = this.players()
+            .filter(p => {
+                if(!p.pos) return false;
+                return p.pos.map === entity.pos.map && p.pos.id === entity.pos.id && p.id !== entity.id;
+            });
+
+        const sharingAndCurrent = sharing
+            .filter(s => s.id === current.id)[0];
+
+        return sharingAndCurrent
+            ? 2
+            : sharing.length > 0
+                ? 1
+                : 0;
+            
     }
 
     players() {
