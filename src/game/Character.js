@@ -36,6 +36,10 @@ export const getPixiPos = (entity, scenario) => {
 
 export const changeSpace = (entity, spaceId, scenario, alsoMoveSprite) => {
     if(!entity.pos) return;
+<<<<<<< HEAD
+=======
+
+>>>>>>> e2b1b66490ad834b7af9fc20eba3ae058cd9b086
     setPos(entity, entity.pos.map, spaceId, scenario, alsoMoveSprite);
 }
 
