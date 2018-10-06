@@ -1,9 +1,9 @@
 import Scene from './Scene';
+import {sharedSpace} from '../utils/constants';
 
 const DIRTY = true;
 const INIT = true;
-const NOT_SHARING = -1;
-const WITH_CURRENT_PLAYER = 2;
+const NO_OFFSET = -1;
 
 const offsets = [
     {x: -12, y: 0},
@@ -39,16 +39,20 @@ export default class PlayerLayer extends Scene {
         const game = this.game;
         const cm = game.cm;
 
+        //I would like to return to only checking dirty entities..
+        //but for now, I need to dynamically check the shared space status
+        //of non-moving players, so no DIRTY
         const entities = cm.entitiesWith(["sprite", "tag"])//, DIRTY && !init)
             .filter(e => e.tag.value === "player");
 
         entities.forEach(e => {
             const sharing = game.isSharingSpace(e);
+
             const shareIndex = sharing && !game.isCurrent(e)
-                ? sharing === WITH_CURRENT_PLAYER
+                ? sharing === sharedSpace.SHARING_WITH_CURRENT
                     ? e.turntaker.index + 6
                     : e.turntaker.index
-                :  NOT_SHARING;
+                :  NO_OFFSET;
 
             const circle = this.getCircle(e, shareIndex);
             const sprite = this.getSprite(e, shareIndex);
@@ -93,11 +97,11 @@ export default class PlayerLayer extends Scene {
     }
 
     setSpriteProperties(rSprite, eSprite, shareIndex) {
-        const scaleMult = shareIndex === NOT_SHARING
+        const scaleMult = shareIndex === NO_OFFSET
             ? 1
             : 0.5;
 
-        const offset = shareIndex === NOT_SHARING
+        const offset = shareIndex === NO_OFFSET
             ? {x:0, y:0}
             : offsets[shareIndex];
 

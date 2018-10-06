@@ -3,9 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import {Application, Loader} from './pixi/Aliases';
 import Game from './game/Game';
-import MapLayer from './scenes/MapLayer';
-import PlayerLayer from './scenes/PlayerLayer';
-import ControlLayer from './scenes/ControlLayer';
 import FourIslandsScenario from './scenarios/FourIslandsScenario';
 import States from './game/GameStates';
 import TurnLoop from './ecs/TurnLoop';
@@ -14,6 +11,7 @@ import PixiSceneManager from './pixi/PixiSceneManager';
 import SpriteMap from './pixi/SpriteMap';
 import MouseService from './utils/MouseService';
 import CameraService from './utils/CameraService';
+import * as Scenes from './scenes/Scenes';
 
 const app = new Application();
 app.renderer.resize(window.innerWidth*.99, window.innerHeight*.99);
@@ -52,11 +50,12 @@ function setup() {
 
     setupSprites(game);
 
-    const mapLayer = new MapLayer("map", game);
-    const playerLayer = new PlayerLayer("player", game);
-    const controlLayer = new ControlLayer("control", game);
-
-    game.service("mgr").setScreens([mapLayer, playerLayer, controlLayer]);
+    game.service("mgr")
+        .setScreens([
+            Scenes.mapLayer(game), 
+            Scenes.playerLayer(game), 
+            Scenes.controlLayer(game)
+        ]);
 
     game.updateGameState(States.CHARACTER_SELECT);
 

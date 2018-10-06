@@ -6,11 +6,8 @@ import * as Professions from './Professions';
 import * as Components from './Components';
 import * as Move from './Move';
 import * as Character from './Character';
-
-import MapLayer from '../scenes/MapLayer';
-import PlayerLayer from '../scenes/PlayerLayer';
-import ControlLayer from '../scenes/ControlLayer';
-import MovePathsLayer from '../scenes/MovePathsLayer';
+import * as Scenes from '../scenes/Scenes';
+import {sharedSpace} from '../utils/constants';
 
 export default class Game extends BaseGameManager {
     constructor(scenario) {
@@ -32,19 +29,24 @@ export default class Game extends BaseGameManager {
             case States.CHARACTER_SELECT:
                 //no op
                 break;
+                
             case States.SCENARIO_START_SCREEN:
                 //no op
                 break;
+
             case States.START_GAME:
                 this.scenario.setInitialGameState(this);
                 this.updateGameState(States.START_ROUND);
                 break;
+
             case States.START_ROUND:
                 this.startRound();
                 break;
+
             case States.START_TURN:
                 this.startTurn();
                 break;
+
             case States.TAKING_TURN:
                 this.takeTurn();
                 break;
@@ -86,18 +88,18 @@ export default class Game extends BaseGameManager {
 
         const space = player.pos;
         const movepaths = Move.findPaths(player.pos, moveroll, this.scenario.maps.get(space.map).spaces);
-        player.edit("turntaker", {movepaths});
-
-        
+        player.edit("turntaker", {movepaths});        
     }
 
     showMove() {
-        const mapLayer = new MapLayer("map", this);
-        const playerLayer = new PlayerLayer("player", this);
-        const controlLayer = new ControlLayer("control", this);
-        const moveLayer = new MovePathsLayer("move", this);
+        this.service("mgr")
+            .setScreens([
+                Scenes.mapLayer(this), 
+                Scenes.playerLayer(this), 
+                Scenes.controlLayer(this), 
+                Scenes.movePathsLayer(this)
+            ]);
 
-        this.service("mgr").setScreens([mapLayer, playerLayer, controlLayer, moveLayer]);
         this.updateGameState(States.TAKING_TURN);
     }
 
@@ -105,12 +107,12 @@ export default class Game extends BaseGameManager {
         const player = this.currentPlayer();
         const end = path[path.length-1];
         
-        
-
-        const mapLayer = new MapLayer("map", this);
-        const playerLayer = new PlayerLayer("player", this);
-        const controlLayer = new ControlLayer("control", this);
-        this.service("mgr").setScreens([mapLayer, playerLayer, controlLayer]);
+        this.service("mgr")
+            .setScreens([
+                Scenes.mapLayer(this), 
+                Scenes.playerLayer(this), 
+                Scenes.controlLayer(this)
+            ]);
 
         //rolled a 0, no need to animiate
         if(path.length === 1) {
@@ -118,7 +120,6 @@ export default class Game extends BaseGameManager {
             this.updateGameState(States.TURN_DONE);
             return;
         }
-
 
         player.add(Components.cameraOn());
 
@@ -190,17 +191,19 @@ export default class Game extends BaseGameManager {
         const sharing = this.players()
             .filter(p => {
                 if(!p.pos) return false;
-                return p.pos.map === entity.pos.map && p.pos.id === entity.pos.id && p.id !== entity.id;
+                return p.pos.map === entity.pos.map && 
+                       p.pos.id === entity.pos.id && 
+                       p.id !== entity.id;
             });
 
         const sharingAndCurrent = sharing
             .filter(s => s.id === current.id)[0];
 
         return sharingAndCurrent
-            ? 2
+            ? sharedSpace.SHARING_WITH_CURRENT
             : sharing.length > 0
-                ? 1
-                : 0;
+                ? sharedSpace.SHARING
+                : sharedSpace.NOT_SHARING;
             
     }
 
