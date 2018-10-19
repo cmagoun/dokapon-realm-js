@@ -85,9 +85,10 @@ export const tag = (value) => {
     };
 };
 
-export const turnTaker = (index) => {
+export const turnTaker = (control, index) => {
     return {
         cname:"turntaker",
+        control,
         index,
         itemsused: 0,
         moveroll: undefined,

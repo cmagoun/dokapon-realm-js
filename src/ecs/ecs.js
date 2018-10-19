@@ -90,8 +90,12 @@ class ComponentManager {
         this.addComponentTo(eid, cname, obj);
     }
 
-    removeComponentFrom(eid, cname) {
+    removeComponentFrom(eid, comp) {
         if(!this.checkEntity(eid)) return;
+        
+        const cname = comp.cname !== undefined
+            ? comp.cname
+            : comp;
 
         this.ctoe.get(cname).delete(eid);
         this.etoc.get(eid).delete(cname);

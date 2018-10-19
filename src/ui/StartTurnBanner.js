@@ -11,6 +11,13 @@ class StartTurnBanner extends Component {
         this.mgr = props.game.service("mgr");
         this.camera = props.game.service("camera");
     }
+
+    componentDidMount() {
+        const currentPlayer = this.props.game.currentPlayer();
+        if(currentPlayer.turntaker.control === "ai") {
+            window.setTimeout(this.handleDone.bind(this), 1000);
+        }
+    }
     
     render() {
         const {game} = this.props;
@@ -29,7 +36,7 @@ class StartTurnBanner extends Component {
 
         const pixiPos = Character.getPixiPos(game.currentPlayer(), game.scenario);
         this.camera.centerOn(pixiPos);
-        this.props.game.updateGameState(States.TAKING_TURN);
+        this.props.game.updateGameState(States.PRE_MOVE);
     }
 }
 

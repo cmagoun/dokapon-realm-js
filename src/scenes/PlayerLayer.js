@@ -3,7 +3,6 @@ import {sharedSpace} from '../utils/constants';
 
 const DIRTY = true;
 const INIT = true;
-const NO_OFFSET = -1;
 
 const offsets = [
     {x: -12, y: 0},
@@ -52,7 +51,7 @@ export default class PlayerLayer extends Scene {
                 ? sharing === sharedSpace.SHARING_WITH_CURRENT
                     ? e.turntaker.index + 6
                     : e.turntaker.index
-                :  NO_OFFSET;
+                :  sharedSpace.NOT_SHARING;
 
             const circle = this.getCircle(e, shareIndex);
             const sprite = this.getSprite(e, shareIndex);
@@ -97,11 +96,11 @@ export default class PlayerLayer extends Scene {
     }
 
     setSpriteProperties(rSprite, eSprite, shareIndex) {
-        const scaleMult = shareIndex === NO_OFFSET
+        const scaleMult = shareIndex === sharedSpace.NOT_SHARING
             ? 1
             : 0.5;
 
-        const offset = shareIndex === NO_OFFSET
+        const offset = shareIndex === sharedSpace.NOT_SHARING
             ? {x:0, y:0}
             : offsets[shareIndex];
 
@@ -117,11 +116,11 @@ export default class PlayerLayer extends Scene {
     }
 
     setCircleProperties(circle, eSprite, shareIndex) {
-        const scaleMult = shareIndex === NOT_SHARING
+        const scaleMult = shareIndex === sharedSpace.NOT_SHARING
             ? 1
             : 0.5;
 
-        const offset = shareIndex === NOT_SHARING
+        const offset = shareIndex === sharedSpace.NOT_SHARING
             ? {x:0, y:0}
             : offsets[shareIndex];
 

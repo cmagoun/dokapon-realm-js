@@ -1,3 +1,4 @@
+import React from 'react';
 import {BaseGameManager} from '../ecs/GameManager';
 
 import States from './GameStates';
@@ -7,7 +8,14 @@ import * as Components from './Components';
 import * as Move from './Move';
 import * as Character from './Character';
 import * as Scenes from '../scenes/Scenes';
+import * as Dialog from '../ui/Dialog';
+import * as UI from '../ui/UI';
+
 import {sharedSpace} from '../utils/constants';
+import CharacterSelect from '../ui/CharacterSelect';
+import Overlay from '../ui/Overlay';
+import StartTurnBanner from '../ui/StartTurnBanner';
+import ScenarioIntro from '../ui/ScenarioIntro';
 
 export default class Game extends BaseGameManager {
     constructor(scenario) {
@@ -24,45 +32,6 @@ export default class Game extends BaseGameManager {
 
     update() {
         if(this.cm.isDirty()) document.dispatchEvent(new CustomEvent("ecs_updated"));
-
-        switch(this.gameState) {
-            case States.CHARACTER_SELECT:
-                //no op
-                break;
-                
-            case States.SCENARIO_START_SCREEN:
-                //no op
-                break;
-
-            case States.START_GAME:
-                this.scenario.setInitialGameState(this);
-                this.updateGameState(States.START_ROUND);
-                break;
-
-            case States.START_ROUND:
-                this.startRound();
-                break;
-
-            case States.START_TURN:
-                this.startTurn();
-                break;
-
-            case States.TAKING_TURN:
-                this.takeTurn();
-                break;
-
-            case States.SHOW_MOVE:
-                this.showMove();
-                break;
-
-            case States.TURN_DONE:
-                this.turnDone();
-                break;
-
-            case States.ROUND_DONE:
-                this.roundDone();
-                break;
-        }
     }
 
     //state mgmt  
@@ -77,7 +46,7 @@ export default class Game extends BaseGameManager {
     startTurn() {
         const player = this.currentPlayer();
         Character.startTurn(player);
-        this.updateGameState(States.WAITING_FOR_INPUT);
+
         //dialog appears
     }
 
@@ -92,6 +61,9 @@ export default class Game extends BaseGameManager {
     }
 
     showMove() {
+        this.calculateMove();
+        Dialog.show(Dialog.movedialog);
+
         this.service("mgr")
             .setScreens([
                 Scenes.mapLayer(this), 
@@ -100,7 +72,7 @@ export default class Game extends BaseGameManager {
                 Scenes.movePathsLayer(this)
             ]);
 
-        this.updateGameState(States.TAKING_TURN);
+        this.updateGameState(States.WAITING_FOR_INPUT);
     }
 
     moveSelected(path) {
@@ -127,15 +99,14 @@ export default class Game extends BaseGameManager {
             player.id, 
             player.animations.walkPath(path, this), 
             () => {
-                player.remove("cameraon");
+                player.remove(Components.cameraOn());
                 Character.changeSpace(player, end.id, this.scenario);
                 this.updateGameState(States.TURN_DONE);
             });
     }
 
-    takeTurn() {
-        //what goes here... for now we are just ending our turn
-        //this.updateGameState(States.TURN_DONE);
+    preMove() {
+        this.updateGameState(States.WAITING_FOR_INPUT);
     }
 
     turnDone() {
@@ -218,7 +189,7 @@ export default class Game extends BaseGameManager {
         this.numPlayers = activePlayers.length;
 
         activePlayers.forEach((p, i) => {
-            const player = Entities.player(p.name, p.profession, p.color, i, this.cm).read();
+            const player = Entities.player(p.name, p.profession, p.color, p.control, i, this.cm).read();
             const startingValues = Professions.startingValues[player.character.profession];
 
             player.add(Components.hits(startingValues.hits));
@@ -232,6 +203,50 @@ export default class Game extends BaseGameManager {
 
     updateGameState(newState, payload) {
         this.gameState = newState;
+
+
+        switch(this.gameState) {
+            case States.CHARACTER_SELECT:
+                UI.set([<CharacterSelect/>], UI.MODAL);
+                break;
+                
+            case States.SCENARIO_START_SCREEN:
+                UI.set([<ScenarioIntro/>], UI.MODAL);
+                break;
+
+            case States.START_GAME:
+                this.scenario.setInitialGameState(this);
+                UI.set([]);
+                this.updateGameState(States.START_ROUND);
+                break;
+
+            case States.START_ROUND:
+                this.startRound();
+                break;
+
+            case States.START_TURN:
+                this.startTurn();  
+                UI.set([<StartTurnBanner/>], UI.MODAL);
+                break;
+
+            case States.PRE_MOVE:
+                UI.set([<Overlay/>]);
+                this.preMove();
+                break;
+
+            case States.SHOW_MOVE:   
+                this.showMove();
+                break;
+
+            case States.TURN_DONE:
+                this.turnDone();
+                break;
+
+            case States.ROUND_DONE:
+                this.roundDone();
+                break;
+        }
+
         document.dispatchEvent(
             new CustomEvent(
                 "game_state_changed", 

@@ -1,28 +1,26 @@
 import React, { Component } from 'react';
 import withContext from '../ecs/withContext';
-import States from '../game/GameStates';
-import ScenarioIntro from './ScenarioIntro';
-import CharacterSelect from './CharacterSelect';
-import StartTurnBanner from './StartTurnBanner';
-import Overlay from './Overlay';
 
 class Main extends Component {
     constructor(props) {
         super(props);
-        this.ecsUpdated = this.updateScreen.bind(this);
+        //this.ecsUpdated = this.updateScreen.bind(this);
+        this.setUiElements = this.handleSetUi.bind(this);
         this.pushUiElement = this.handlePush.bind(this);
         this.popUiElement = this.handlePop.bind(this);
         this.state = {components:[]};
     }
 
     componentDidMount() {
-        document.addEventListener("game_state_changed", this.ecsUpdated);
+        //document.addEventListener("game_state_changed", this.ecsUpdated);
+        document.addEventListener("set_ui_elements", this.setUiElements);
         document.addEventListener("push_ui_element", this.pushUiElement);
         document.addEventListener("pop_ui_element", this.popUiElement);
     }
 
     componentWillUnmount() {
-        document.removeEventListener("game_state_changed", this.ecsUpdated);
+        //document.removeEventListener("game_state_changed", this.ecsUpdated);
+        document.removeEventListener("set_ui_elements", this.setUiElements);
         document.removeEventListener("push_ui_element", this.pushUiElement);
         document.removeEventListener("pop_ui_element", this.popUiElement);
     }
@@ -40,37 +38,7 @@ class Main extends Component {
         </div>
     }
 
-    updateScreen(evt) {
-        const gameState = evt.detail.state;
-        switch(gameState) {
 
-            case States.CHARACTER_SELECT:
-                this.props.game.startModal();
-                this.setState({components:[<CharacterSelect/>]});
-                break;
-
-            case States.SCENARIO_START_SCREEN:
-                this.props.game.startModal();
-                this.setState({components:[<ScenarioIntro/>]});
-                break;
-
-            case States.START_GAME:
-                this.props.game.endModal();
-                this.setState({components:[]});
-                break;
-
-            case States.START_TURN:
-                this.props.game.startModal();
-                this.setState({components:[<StartTurnBanner/>]});
-                break;
-
-            case States.TAKING_TURN:
-            case States.SHOW_MOVE:
-                this.props.game.endModal();
-                this.setState({components:[<Overlay/>]});
-
-        }
-    }
 
     handlePush(evt) {
         const ui = evt.detail;
@@ -84,6 +52,18 @@ class Main extends Component {
         const components = this.state.components;
         components.pop();
         this.setState({components});
+    }
+
+    handleSetUi(evt) {
+        const {ui, modal} = evt.detail;
+
+        if(modal) {
+            this.props.game.startModal();
+        } else {
+            this.props.game.endModal();
+        }
+
+        this.setState({components:ui});
     }
 }
 

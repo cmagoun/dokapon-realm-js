@@ -5,6 +5,12 @@ import SimpleDialog from './SimpleDialog';
 import States from '../game/GameStates';
 
 class MoveDialog extends Component {
+    componentDidMount() {
+        const currentPlayer = this.props.game.currentPlayer();
+        if(currentPlayer.turntaker.control === "ai") {
+            window.setTimeout(this.handleDone.bind(this), 1000);
+        }
+    }
     render() {
         const {game} = this.props;
         const currentPlayer = game.currentPlayer();

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import withContext from '../ecs/withContext';
 import * as Dialog from './Dialog';
 import * as Move from '../game/Move';
+import States from '../game/GameStates';
 
 const style = {
     main: {
@@ -35,8 +36,9 @@ class CommandDisplay extends Component {
     }
 
     handleMove() {
-        this.props.game.calculateMove();
-        Dialog.show(Dialog.movedialog);
+        this.props.game.updateGameState(States.SHOW_MOVE);
+        // this.props.game.calculateMove();
+        // Dialog.show(Dialog.movedialog);
     }
 }
 
