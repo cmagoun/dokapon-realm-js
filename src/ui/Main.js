@@ -4,7 +4,6 @@ import withContext from '../ecs/withContext';
 class Main extends Component {
     constructor(props) {
         super(props);
-        //this.ecsUpdated = this.updateScreen.bind(this);
         this.setUiElements = this.handleSetUi.bind(this);
         this.pushUiElement = this.handlePush.bind(this);
         this.popUiElement = this.handlePop.bind(this);
@@ -12,14 +11,12 @@ class Main extends Component {
     }
 
     componentDidMount() {
-        //document.addEventListener("game_state_changed", this.ecsUpdated);
         document.addEventListener("set_ui_elements", this.setUiElements);
         document.addEventListener("push_ui_element", this.pushUiElement);
         document.addEventListener("pop_ui_element", this.popUiElement);
     }
 
     componentWillUnmount() {
-        //document.removeEventListener("game_state_changed", this.ecsUpdated);
         document.removeEventListener("set_ui_elements", this.setUiElements);
         document.removeEventListener("push_ui_element", this.pushUiElement);
         document.removeEventListener("pop_ui_element", this.popUiElement);

@@ -36,7 +36,7 @@ class CommandDisplay extends Component {
     }
 
     handleMove() {
-        this.props.game.updateGameState(States.SHOW_MOVE);
+        this.props.game.updateGameState(States.ROLL_MOVE);
         // this.props.game.calculateMove();
         // Dialog.show(Dialog.movedialog);
     }

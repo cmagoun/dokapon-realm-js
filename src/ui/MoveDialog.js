@@ -3,6 +3,7 @@ import withContext from '../ecs/withContext';
 import Centered from './Centered';
 import SimpleDialog from './SimpleDialog';
 import States from '../game/GameStates';
+import * as Dialog from './Dialog';
 
 class MoveDialog extends Component {
     componentDidMount() {
@@ -11,6 +12,7 @@ class MoveDialog extends Component {
             window.setTimeout(this.handleDone.bind(this), 1000);
         }
     }
+    
     render() {
         const {game} = this.props;
         const currentPlayer = game.currentPlayer();
@@ -26,6 +28,7 @@ class MoveDialog extends Component {
     }
 
     handleDone() {
+        Dialog.pop();
         this.props.game.updateGameState(States.SHOW_MOVE);
     }
 }

@@ -7,7 +7,8 @@ const States = {
     START_ROUND: 5,
     START_TURN: 6,
     PRE_MOVE: 7,
-    SHOW_MOVE: 7.1,
+    ROLL_MOVE: 7.1,
+    SHOW_MOVE: 7.2,
     TURN_DONE: 8,
     ROUND_DONE: 9,
 
